@@ -377,6 +377,8 @@ html.lenis, html.lenis body { height: auto; }
 .work-title { font: 500 32px/1 var(--round); white-space: nowrap; }
 /* Placeholder folders: drained to grey, with a handwritten note across the front. */
 .work-card.soon > * { filter: grayscale(1); }
+/* They stay still: nothing inside takes the pointer, so no hover lift, glow, tilt or spotlight. */
+.work-card.soon .lift > *, .work-card.soon .work-title { pointer-events: none; }
 .soon-label { left: 0; right: 0; top: 440px; text-align: center; font: 52px/1 var(--hand); color: rgba(0, 0, 0, 0.62); transform: rotate(-4deg); pointer-events: none; }
 .back-sheet { width: 298.93px; height: 501.558px; border-radius: 24px; }
 .back-sheet .clip { border-radius: 24px; }
