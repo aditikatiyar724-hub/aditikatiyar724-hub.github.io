@@ -277,11 +277,18 @@ html.lenis, html.lenis body { height: auto; }
 /* Deeper top shade used at the last stop (the map has scrolled up under the heading). */
 .exp-fade-deep { left: 0; top: 0; width: 1440px; height: 464.528px; opacity: 0; background: linear-gradient(to bottom, #000, rgba(0,0,0,0)); }
 .exp-lantern { left: 12.91px; top: 108.33px; width: 632.623px; height: 665.211px; }
-/* Contact shadow under the lantern base. */
-.exp-lantern-shadow {
-  left: 106px; top: 548px; width: 420px; height: 128px;
-  background: radial-gradient(closest-side, rgba(0,0,0,.85), rgba(0,0,0,.55) 50%, rgba(0,0,0,0));
-  filter: blur(6px);
+/* Shadow under the lantern base: a soft pool hugging the rim, plus a dark occlusion line where it meets the floor. */
+.exp-lantern-shadow { left: 156px; top: 500px; width: 300px; height: 130px; }
+.exp-lantern-shadow::before, .exp-lantern-shadow::after { content: ""; position: absolute; border-radius: 50%; }
+.exp-lantern-shadow::before {
+  inset: 0;
+  background: radial-gradient(closest-side, rgba(0,0,0,.9), rgba(0,0,0,.7) 60%, rgba(0,0,0,0));
+  filter: blur(8px);
+}
+.exp-lantern-shadow::after {
+  left: 32px; top: 46px; width: 236px; height: 66px;
+  background: rgba(0,0,0,.85);
+  filter: blur(3px);
 }
 /* Lamplight glow on the paper (Figma Ellipse 22703), blended over the map only. */
 .exp-map > .exp-map-glow { position: absolute; left: 322.36px; top: 238.13px; width: 670.44px; height: 485.919px; mix-blend-mode: overlay; }
@@ -372,12 +379,8 @@ html.lenis, html.lenis body { height: auto; }
 .back-sheet .clip > img { left: -64.99%; top: -13.14%; width: 210.46%; height: 125.44%; }
 .photo-card { width: 472.823px; height: 290.004px; background: #fff; border-radius: 24px; overflow: hidden; }
 .photo-card > img { position: absolute; left: calc(50% + 0.35px); top: calc(50% - 82.87px); width: 486.061px; height: 648.082px; transform: translate(-50%, -50%); object-fit: cover; }
-/* Gamification card: a sunburst and glow, layered and blended as in Figma. */
-.photo-card.work1-art { background: #1d7bff; isolation: isolate; }
-.work1-art > * { position: absolute; transform: translateX(-50%); pointer-events: none; }
-.work1-art .rays { left: calc(50% + 13.87px); top: -250.68px; width: 799.989px; height: 799.989px; mix-blend-mode: hard-light; opacity: .3; }
-.work1-art .glow { left: calc(50% + 13.87px); top: -80.09px; width: 211.76px; height: 211.76px; mix-blend-mode: overlay; }
-.work1-art .glow > img { position: absolute; left: -73.2%; top: -73.2%; width: 246.4%; height: 246.4%; }
+/* Gamification and user research cards: the artwork fills the card. */
+.photo-card:is(.work1-art, .work2-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: cover; }
 .folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
 .folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
 .folder-bottom { width: 168.439px; height: 564.202px; transform: rotate(-90deg); }
