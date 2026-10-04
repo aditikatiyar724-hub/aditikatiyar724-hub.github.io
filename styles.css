@@ -1,0 +1,457 @@
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --hand: "Delicious Handrawn", cursive;
+  --round: "SF Pro Rounded", ui-rounded, "Nunito", system-ui, sans-serif;
+  --pink: #ff4b9c;
+  --ink: #040a14;
+  --accent: #da4a00;
+  --scale: 1;
+}
+
+html, body { background: #000; color: #fff; }
+body { overflow-x: hidden; -webkit-font-smoothing: antialiased; font-feature-settings: "dlig" 1; }
+img { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+
+/* Lenis smooth scrolling (script.js) takes over wheel scrolling; native smooth-scroll would fight it. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* The design is a fixed 1440px canvas; it is scaled to the viewport width. */
+.viewport { position: relative; width: 100%; height: calc(12878px * var(--scale)); overflow: hidden; }
+.stage {
+  position: absolute; top: 0; left: 0;
+  width: 1440px; height: 12878px;
+  transform: scale(var(--scale)); transform-origin: 0 0;
+  overflow: hidden; background: #000;
+}
+
+/* Rotated elements: outer box = Figma bounding box, inner = the real element. */
+.abs { position: absolute; }
+.box { position: absolute; display: flex; align-items: center; justify-content: center; }
+.box > * { flex: none; position: relative; }
+.fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.clip { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.clip > img { position: absolute; }
+.center-x { left: 50%; transform: translateX(-50%); }
+
+/* ---------- Hero ---------- */
+.hero { position: absolute; left: 0; top: 0; width: 1440px; height: 835px; overflow: hidden; background: #000; }
+/* Black blur that hides the seam between the hero image and the next section. */
+.fade-bottom { left: -2px; right: -2px; bottom: -2px; height: 180px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.65) 55%, #000); }
+/* On load the backdrop fades up from black, easing out of a soft blur and slight zoom. */
+.hero-bg { animation: hero-bg-in 2.2s cubic-bezier(.22, 1, .36, 1) backwards; }
+@keyframes hero-bg-in {
+  from { opacity: 0; scale: 1.08; filter: blur(12px); }
+  to   { opacity: 1; scale: 1; filter: blur(0); }
+}
+.glow-img { position: absolute; display: block; width: 100%; height: 100%; }
+
+.hi-pill {
+  transform: rotate(-6.28deg);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px 44px; border-radius: 12px;
+  background: var(--pink); border: 2px solid rgba(255,255,255,0.32);
+  font: 36px/1 var(--hand); color: #fff; white-space: nowrap;
+}
+/* Hero stickers: the "Hi, I am" pill and the CashKaro badge pop onto the page like stickers being pressed on. */
+.js .hi-pill { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) .05s both; }
+.js .role-badge { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) 1.25s both; }
+@keyframes sticker-in {
+  0%   { opacity: 0; scale: .55; rotate: -8deg; filter: blur(4px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; scale: 1; rotate: 0deg; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .hi-pill, .js .role-badge { animation: none; }
+}
+.hero-name { left: 117.27px; top: 366.09px; font: 700 100px/1 var(--round); letter-spacing: 1px; white-space: nowrap; }
+
+.role { left: 434.43px; top: 303.23px; display: flex; align-items: center; }
+.role-chip {
+  margin-right: -20px; padding: 10.825px 24px 10.825px 18px;
+  border-radius: 8.119px 0 0 8.119px;
+  background: linear-gradient(to left, rgba(255,255,255,0.07) 7.63%, rgba(255,255,255,0.33));
+  font: 600 14px/1 var(--round); letter-spacing: 0.14px; white-space: nowrap;
+}
+.role-badge { position: relative; width: 57.839px; height: 59.326px; flex: none; }
+.role-badge .star { position: absolute; inset: 9.67% 9.42%; width: auto; height: auto; }
+.role-badge .star img { width: 100%; height: 100%; }
+.role-badge .logo { left: 13.64px; top: 14.73px; width: 29.797px; height: 29.797px; }
+.role-badge .logo > div { width: 24.938px; height: 24.938px; transform: rotate(-12.66deg); }
+
+.stamp { display: block; cursor: pointer; z-index: 1; transition: transform .35s ease; }
+.stamp:hover, .stamp:focus-visible { transform: rotate(var(--straighten, 0deg)) scale(1.04); z-index: 3; }
+/* Each image has its tilt baked in; hovering rotates it back to straight. */
+.stamp:nth-of-type(1) { --straighten: 7.55deg; }
+.stamp:nth-of-type(2) { --straighten: 5.3deg; }
+.stamp:nth-of-type(3) { --straighten: -8.29deg; }
+.stamp:hover > img, .stamp:focus-visible > img { --sway: 0; }
+
+/* On load the stickers rise in from below, left to right. Uses `translate` so it never fights the hover `transform`. */
+.stamp { animation: stamp-rise 1.4s cubic-bezier(.22, 1, .36, 1) backwards; }
+.stamp[aria-label="Resume"]      { animation-delay: .5s; }
+.stamp[aria-label="Work"]        { animation-delay: .68s; }
+.stamp[aria-label="Fun with A.I"] { animation-delay: .86s; }
+@keyframes stamp-rise {
+  from { translate: 0 180px; opacity: 0; }
+  to   { translate: 0 0; opacity: 1; }
+}
+
+/* Darkens and blurs everything behind the hovered sticker. */
+.hero-dim {
+  inset: 0; z-index: 2; pointer-events: none; opacity: 0;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  transition: opacity .35s ease;
+}
+.hero:has(.stamp:hover) .hero-dim,
+.hero:has(.stamp:focus-visible) .hero-dim { opacity: 1; }
+
+/* Dim, softly glowing fireflies that wander behind the hovered sticker. */
+.fireflies { inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity .6s ease; }
+.hero:has(.stamp:hover) .fireflies,
+.hero:has(.stamp:focus-visible) .fireflies { opacity: 1; }
+.firefly {
+  position: absolute; width: var(--size); height: var(--size); border-radius: 50%;
+  background-color: var(--ff-core);
+  box-shadow: 0 0 6px 2px var(--ff-glow), 0 0 16px 6px var(--ff-halo);
+  transition: background-color .5s ease, box-shadow .5s ease;
+  animation: firefly-drift var(--drift) ease-in-out infinite alternate, firefly-glow var(--pulse) ease-in-out infinite;
+  animation-delay: var(--delay), var(--delay);
+  animation-play-state: paused;
+}
+/* Firefly colour follows the hovered sticker: warm gold (Resume), blue (Fun with A.I), pink (Work). */
+.fireflies { --ff-core: #ffe7a0; --ff-glow: rgba(255, 214, 107, .35); --ff-halo: rgba(255, 190, 60, .12); }
+.hero:has(.stamp[aria-label="Fun with A.I"]:is(:hover, :focus-visible)) .fireflies {
+  --ff-core: #c4dcff; --ff-glow: rgba(110, 165, 255, .4); --ff-halo: rgba(70, 130, 255, .14);
+}
+.hero:has(.stamp[aria-label="Work"]:is(:hover, :focus-visible)) .fireflies {
+  --ff-core: #ffc6e4; --ff-glow: rgba(255, 110, 190, .4); --ff-halo: rgba(240, 70, 160, .14);
+}
+/* Lamp fireflies: always gold and always drifting. */
+.lamp-fireflies { pointer-events: none; --ff-core: #ffe7a0; --ff-glow: rgba(255, 214, 107, .35); --ff-halo: rgba(255, 190, 60, .12); }
+.lamp-fireflies .firefly { animation-play-state: running; }
+.hero:has(.stamp:hover) .firefly,
+.hero:has(.stamp:focus-visible) .firefly { animation-play-state: running; }
+@keyframes firefly-drift {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(calc(var(--dx) * .6), calc(var(--dy) * -.4)); }
+  66%  { transform: translate(calc(var(--dx) * -.3), calc(var(--dy) * .7)); }
+  100% { transform: translate(var(--dx), var(--dy)); }
+}
+@keyframes firefly-glow {
+  0%, 100% { opacity: .08; }
+  45%      { opacity: .55; }
+  60%      { opacity: .3; }
+}
+
+/* Slow, gentle float — each sticker drifts on its own rhythm. */
+.stamp > img { --sway: 1; animation: float 7s ease-in-out infinite; will-change: transform; }
+.stamp:nth-of-type(1) > img { animation-duration: 7s;   animation-delay: 0s; }
+.stamp:nth-of-type(2) > img { animation-duration: 8.5s; animation-delay: -3s; }
+.stamp:nth-of-type(3) > img { animation-duration: 7.8s; animation-delay: -5.5s; }
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(2px, -7px) rotate(calc(var(--sway) * 0.6deg)); }
+  50%      { transform: translate(0, -12px) rotate(0deg); }
+  75%      { transform: translate(-2px, -6px) rotate(calc(var(--sway) * -0.6deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stamp > img, .stamp, .hero-bg { animation: none; }
+  .firefly { animation: firefly-glow var(--pulse) ease-in-out infinite; }
+}
+
+/* ---------- About ---------- */
+.about { position: absolute; left: 0; top: 1163px; width: 1440px; height: 1132px; overflow: hidden; background: #000; }
+.desk { top: 0; width: 1461.512px; height: 1116.371px; }
+.desk .clip > img { left: 0; top: -29.91%; width: 100%; height: 182.82%; }
+.desk .shade {
+  position: absolute; inset: 0; background-size: 100% 100%;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1461.5 1116.4' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.8799999952316284'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(0.0000095936 59.71 -78.17 0.0000053768 730.76 376.49)'><stop stop-color='rgba(0,0,0,0)' offset='0'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>");
+}
+.lamp { top: 0; width: 512.625px; height: 420.078px; }
+.lamp .clip > img { left: -86.85%; top: -56.97%; width: 273.7%; height: 466.43%; }
+.lamp-masked {
+  left: calc(50% + 0.86px); top: 1.49px; transform: translateX(-50%);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='351.039' height='317.863' viewBox='0 0 351.039 317.863'%3E%3Cellipse cx='175.52' cy='158.932' rx='175.52' ry='158.932' fill='%23D9D9D9'/%3E%3C/svg%3E") 80.27px -80.887px / 351.039px 317.863px no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='351.039' height='317.863' viewBox='0 0 351.039 317.863'%3E%3Cellipse cx='175.52' cy='158.932' rx='175.52' ry='158.932' fill='%23D9D9D9'/%3E%3C/svg%3E") 80.27px -80.887px / 351.039px 317.863px no-repeat;
+}
+.fade-top-lg { left: 0; top: 0; width: 1440px; height: 193.098px; background: linear-gradient(to bottom, #000, rgba(0,0,0,0)); }
+.fade-side { top: 0; width: 297.459px; height: 1440px; }
+.fade-side.l { left: 0; background: linear-gradient(to right, #000, rgba(0,0,0,0)); }
+.fade-side.r { right: -96.3px; background: linear-gradient(to left, #000, rgba(0,0,0,0)); }
+.tool { cursor: default; }
+.tool img { width: 100%; height: 100%; }
+.round { border-radius: 999px; }
+.about-title { font: 88px/1 var(--hand); letter-spacing: -1.76px; color: #000; white-space: nowrap; transform: rotate(-9deg); }
+.about-body { width: 495.065px; font: 24px/2 var(--hand); color: #000; transform: rotate(-9deg); }
+.about-body em { font-style: normal; color: var(--accent); }
+
+/* Scroll reveal: once the About scene is in view its parts arrive in sequence (delay set per element via --d).
+   Uses the individual `translate`/`scale` properties so existing transforms (centering, rotation) are untouched. */
+.js .about .rv {
+  opacity: 0;
+  transition: opacity .9s ease, translate 1s cubic-bezier(.2,.7,.2,1), scale .7s cubic-bezier(.3,1.5,.5,1);
+  transition-delay: var(--d, 0s);
+}
+.js .about .rv-drop  { translate: 0 -80px; }
+.js .about .rv-up    { translate: 0 90px; }
+.js .about .rv-left  { translate: -90px 0; }
+.js .about .rv-right { translate: 90px 0; }
+.js .about .rv-pop   { scale: .4; }
+.js .about.in-view .rv { opacity: 1; translate: none; scale: none; }
+/* Paper hover: the note and its text tilt and zoom together around the paper's centre
+   (--ox/--oy on each part point at that shared centre). */
+.about .lamp, .about .lamp-light, .about .fade-top-lg, .about .fade-side { pointer-events: none; }
+.paper-part { transform-origin: var(--ox) var(--oy); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.js .about .rv.paper-part {
+  transition: opacity .9s ease, translate 1s cubic-bezier(.2,.7,.2,1), scale .7s cubic-bezier(.3,1.5,.5,1), transform .5s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--d, 0s), var(--d, 0s), var(--d, 0s), 0s;
+}
+.about:has(.paper-hit:hover) .paper-part { transform: rotate(-2deg) scale(1.05); }
+
+/* Note under the pocket watch. */
+.watch-note { pointer-events: none; }
+.watch-note p { margin: 0; font: 26px/1 var(--hand); letter-spacing: 0.56px; color: #e7bb71; white-space: nowrap; }
+/* Smooth typing: .type-in text is split into one span per letter by script.js; each letter glows
+   softly out of a blur in turn. In the About scene it starts at --type-start once the scene is in view;
+   elsewhere it replaces the magical appear and starts at that element's --appear-delay. */
+.type-in .ch { display: inline-block; white-space: pre; }
+.js .type-in .ch { opacity: 0; }
+.js .about.in-view .type-in .ch,
+.js .type-in.shown .ch { animation: var(--type-anim, type-in) var(--type-dur, .45s) var(--type-ease, ease-out) calc(var(--type-start, var(--appear-delay, 0s)) + var(--i) * var(--type-step, 55ms)) forwards; }
+/* Hero name: slower, longer-overlapping letters with a gentler blur for a softer, very smooth type-in. */
+.hero-name.type-in { --type-anim: type-in-soft; --type-dur: 1.3s; --type-step: 85ms; --type-ease: cubic-bezier(.22, .61, .36, 1); }
+.hero-name.type-in .ch { will-change: opacity, filter, translate; }
+@keyframes type-in-soft {
+  0%   { opacity: 0; filter: blur(10px); translate: 0 10px; text-shadow: 0 0 18px rgba(255, 220, 160, .6); }
+  50%  { opacity: .85; filter: blur(2px); translate: 0 2px; text-shadow: 0 0 12px rgba(255, 220, 160, .35); }
+  100% { opacity: 1; filter: blur(0); translate: 0 0; text-shadow: 0 0 0 rgba(255, 220, 160, 0); }
+}
+.appear.type-in, .appear.type-in.shown { opacity: 1; animation: none; }
+@keyframes type-in {
+  0%   { opacity: 0; filter: blur(4px); translate: 0 4px; text-shadow: 0 0 10px rgba(255, 200, 110, .9); }
+  60%  { opacity: 1; filter: blur(0); text-shadow: 0 0 8px rgba(255, 200, 110, .5); }
+  100% { opacity: 1; filter: none; translate: 0 0; text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .type-in .ch, .js .about.in-view .type-in .ch, .js .type-in.shown .ch { opacity: 1; animation: none; }
+}
+
+/* Magic ink: the body text inks in all at once after the scene has settled. */
+.js .about-body { opacity: 0; }
+.js .about-body.typing { animation: ink 1.2s ease-out forwards; }
+@keyframes ink {
+  0%   { opacity: 0; filter: blur(6px); text-shadow: 0 0 14px rgba(255,190,90,.95); }
+  45%  { opacity: 1; filter: blur(0);   text-shadow: 0 0 10px rgba(255,190,90,.7); }
+  100% { opacity: 1; filter: none;      text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .about-body.typing { animation: none; opacity: 1; }
+  .js .about .rv { translate: none; scale: none; transition: opacity .01s; }
+}
+
+/* ---------- Experience history ---------- */
+.experience { position: absolute; left: 0; top: 3814px; width: 1440px; height: 1712px; overflow: hidden; background: #000; }
+.experience > * { pointer-events: none; }
+.fade-top-lg.flip { transform: scaleY(-1); }
+.exp-room { left: 0; top: 305.14px; width: 1440px; height: 1124.523px; }
+.exp-room .clip > img { left: -27.75%; top: -10.87%; width: 149.39%; height: 127.53%; }
+.exp-fade-side { top: 271.43px; width: 193.098px; height: 1440px; }
+.exp-fade-side.l { left: 0; background: linear-gradient(to right, #000, rgba(0,0,0,0)); }
+.exp-fade-side.r { right: 0; background: linear-gradient(to left, #000, rgba(0,0,0,0)); }
+.exp-vignette {
+  left: -162.97px; top: 72.33px; width: 1699.266px; height: 1546.406px; background-size: 100% 100%;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1699.3 1546.4' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(5.2025e-15 77.32 -84.963 4.7345e-15 849.63 773.2)'><stop stop-color='rgba(0,0,0,0)' offset='0'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>");
+}
+/* Soft black falloff that hides the floor's bottom edge and sinks the foot of the map into darkness. */
+.exp-fade-bottom {
+  left: 0; top: 1150px; width: 1440px; height: 562px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.35) 25%, rgba(0,0,0,.8) 42%, #000 55%, #000);
+}
+.exp-fade-mid { left: 0; top: 241.28px; width: 1440px; height: 223.244px; background: linear-gradient(to bottom, #000, rgba(0,0,0,0)); }
+/* Deeper top shade used at the last stop (the map has scrolled up under the heading). */
+.exp-fade-deep { left: 0; top: 0; width: 1440px; height: 464.528px; opacity: 0; background: linear-gradient(to bottom, #000, rgba(0,0,0,0)); }
+.exp-lantern { left: 12.91px; top: 108.33px; width: 632.623px; height: 665.211px; }
+/* Contact shadow under the lantern base. */
+.exp-lantern-shadow {
+  left: 106px; top: 548px; width: 420px; height: 128px;
+  background: radial-gradient(closest-side, rgba(0,0,0,.85), rgba(0,0,0,.55) 50%, rgba(0,0,0,0));
+  filter: blur(6px);
+}
+/* Lamplight glow on the paper (Figma Ellipse 22703), blended over the map only. */
+.exp-map > .exp-map-glow { position: absolute; left: 322.36px; top: 238.13px; width: 670.44px; height: 485.919px; mix-blend-mode: overlay; }
+.exp-map-glow > div { position: relative; width: 617.085px; height: 396.153px; transform: rotate(-8.8deg); }
+.exp-map-glow img { position: absolute; left: -48.62%; top: -75.73%; width: 197.24%; height: 251.46%; }
+.exp-heading { left: 549px; top: 168.55px; display: flex; flex-direction: column; align-items: flex-start; gap: 3.743px; white-space: nowrap; }
+.exp-heading p { font: 400 26.4px/normal var(--round); color: rgba(255, 255, 255, 0.4); }
+.exp-heading h2 { font: 400 106px/1 var(--hand); letter-spacing: -2.12px; }
+/* Scroll-driven scene: script.js reveals the lantern, floor and map, then pins the section and zooms per step. */
+.experience, .exp-room, .exp-map, .exp-lantern, .exp-vignette { will-change: transform, opacity; }
+.exp-vignette { transform-origin: 0 0; }
+
+/* Experience stop: a frosted tag with a postage stamp of the company logo. */
+.exp-tag {
+  display: flex; gap: 10px; align-items: center; padding: 16px 24px; border-radius: 24px;
+  background: rgba(0, 0, 0, 0.74); -webkit-backdrop-filter: blur(12.4px); backdrop-filter: blur(12.4px);
+}
+.tag-stamp { position: relative; flex: none; width: 121px; height: 109.594px; }
+.tag-stamp > .fill { object-fit: cover; }
+/* Logo face sits centred on the stamp; it is drawn flipped like the Figma layer, so logos flip back. */
+.stamp-face {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; transform: scaleY(-1);
+  overflow: hidden; border-style: solid; border-color: rgba(255, 255, 255, 0.4);
+}
+.stamp-face > .box { position: absolute; }
+.stamp-face .shine { left: 50%; transform: translateX(-50%); mix-blend-mode: hard-light; }
+.stamp-face .shine > img { position: absolute; left: -94.23%; top: -94.23%; width: 288.46%; height: 288.46%; }
+.tag-text {
+  flex: 1 0 0; min-width: 1px; display: flex; align-items: center; justify-content: space-between;
+  white-space: nowrap; font-family: var(--round); font-weight: 700;
+}
+.tag-main { display: flex; flex-direction: column; gap: 2px; width: 243px; }
+.tag-main h3 { font-size: 36px; line-height: normal; letter-spacing: 0.72px; font-weight: 700; }
+.tag-main p { font-size: 24px; line-height: normal; }
+.tag-date { display: flex; flex-direction: column; gap: 6px; font-size: 16px; line-height: normal; letter-spacing: 0.32px; color: #e7bb71; }
+.tag-date span { font-weight: 300; }
+/* Pop in when its step is reached: the tag rises in, then the stamp springs onto it.
+   Hidden tags are also made invisible so their backdrop blur isn't composited while the map moves. */
+.exp-tag { opacity: 0; visibility: hidden; translate: 0 24px; scale: .96; transition: opacity .35s ease, translate .5s cubic-bezier(.2, .7, .2, 1), scale .5s cubic-bezier(.2, .7, .2, 1), visibility 0s .5s; }
+.exp-tag .tag-stamp { scale: .4; opacity: 0; transition: opacity .25s ease, scale .55s cubic-bezier(.3, 1.6, .5, 1); }
+.exp-tag.on { opacity: 1; visibility: visible; translate: none; scale: none; transition-delay: 0s; }
+.exp-tag.on .tag-stamp { scale: none; opacity: 1; transition-delay: .12s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-tag, .exp-tag .tag-stamp { scale: none; translate: none; transition: opacity .01s; }
+}
+
+/* ---------- Section headings ---------- */
+.heading { display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; white-space: nowrap; }
+.heading h2 { font: 400 88px/1 var(--hand); letter-spacing: -1.76px; }
+.heading p { font: 400 24px/normal var(--round); color: rgba(255, 255, 255, 0.4); }
+.heading p span { font-weight: 300; }
+
+/* ---------- Selected work ---------- */
+.work-card { display: block; cursor: pointer; }
+.work-card .lift { position: absolute; inset: 0; transition: transform .3s ease; }
+.work-card:hover .lift { transform: translateY(-8px); }
+/* Work cards rest as plain folders; hovering swaps in the glow, tilted photo and wax seal.
+   The card box includes glow room that overlaps neighbouring rows, so only the folder and title take the pointer. */
+.work-card { pointer-events: none; }
+.work-card .lift > *, .work-card .work-title { pointer-events: auto; }
+.work-card .on-hover,
+.work-card .off-hover { transition: opacity .35s ease; }
+.work-card .on-hover { opacity: 0; }
+.work-card:is(:hover, :focus-visible) .on-hover { opacity: 1; }
+.work-card:is(:hover, :focus-visible) .off-hover { opacity: 0; }
+.work-card .tilt { transform: translateY(31.64px); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.work-card:is(:hover, :focus-visible) .tilt { transform: rotate(-4deg); }
+/* Scroll reveal: each folder rises and fades in as it enters the viewport (stagger via --d). */
+.js .work-card {
+  opacity: 0; translate: 0 80px; scale: .96;
+  transition: opacity .9s ease, translate 1.1s cubic-bezier(.2,.7,.2,1), scale 1.1s cubic-bezier(.2,.7,.2,1), filter .4s ease;
+  transition-delay: var(--d, 0s), var(--d, 0s), var(--d, 0s), 0s;
+}
+.js .work-card.in-view { opacity: 1; translate: none; scale: none; }
+/* Spotlight: while one card is hovered, the rest of the section blurs and darkens behind it. */
+.work-card, #work { transition: filter .4s ease; }
+.work-card:is(:hover, :focus-visible) { z-index: 2; }
+.stage:has(.work-card:is(:hover, :focus-visible)) :is(.work-card:not(:hover, :focus-visible), #work) { filter: blur(6px) brightness(.35); }
+@media (prefers-reduced-motion: reduce) {
+  .js .work-card { translate: none; scale: none; transition: opacity .01s; }
+}
+.work-title { font: 500 32px/1 var(--round); white-space: nowrap; }
+.back-sheet { width: 298.93px; height: 501.558px; border-radius: 24px; }
+.back-sheet .clip { border-radius: 24px; }
+.back-sheet .clip > img { left: -64.99%; top: -13.14%; width: 210.46%; height: 125.44%; }
+.photo-card { width: 472.823px; height: 290.004px; background: #fff; border-radius: 24px; overflow: hidden; }
+.photo-card > img { position: absolute; left: calc(50% + 0.35px); top: calc(50% - 82.87px); width: 486.061px; height: 648.082px; transform: translate(-50%, -50%); object-fit: cover; }
+/* Gamification card: a sunburst and glow, layered and blended as in Figma. */
+.photo-card.work1-art { background: #1d7bff; isolation: isolate; }
+.work1-art > * { position: absolute; transform: translateX(-50%); pointer-events: none; }
+.work1-art .rays { left: calc(50% + 13.87px); top: -250.68px; width: 799.989px; height: 799.989px; mix-blend-mode: hard-light; opacity: .3; }
+.work1-art .glow { left: calc(50% + 13.87px); top: -80.09px; width: 211.76px; height: 211.76px; mix-blend-mode: overlay; }
+.work1-art .glow > img { position: absolute; left: -73.2%; top: -73.2%; width: 246.4%; height: 246.4%; }
+.folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
+.folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
+.folder-bottom { width: 168.439px; height: 564.202px; transform: rotate(-90deg); }
+.folder-bottom .clip > img { left: -32.73%; top: 0; width: 334.96%; height: 100%; }
+/* The wax seal trails the cursor (offsets set in script.js); it must not catch the pointer or the card would never lose hover. */
+.work-card .lift > .seal { pointer-events: none; translate: var(--seal-x, 0) var(--seal-y, 0); transition: opacity .35s ease, translate .18s ease-out; }
+.seal-img { width: 108.273px; height: 104.934px; transform: rotate(-16.87deg); }
+.seal-img .clip > img { left: -20.59%; top: -20.67%; width: 141.18%; height: 145.67%; }
+.seal-text { width: 52px; display: flex; flex-direction: column; align-items: center; font: 20px/1 var(--hand); color: #fff; transform: rotate(-16.87deg); }
+.seal-text span { width: 100%; }
+.seal-text span:first-child { margin-bottom: -4px; }
+
+/* Cards 2-4 share one layout, positioned from the group origin. */
+
+/* ---------- Design playground ---------- */
+.playground { left: 38px; top: 10146px; display: flex; gap: 32px; align-items: center; }
+.play-card { width: 317px; height: 461px; background: #fff; border-radius: 28px; flex: none; transition: transform .25s ease; }
+.play-card:hover { transform: translateY(-8px); }
+/* Cards rise in one after another when the row scrolls into view. */
+.js .playground .play-card {
+  opacity: 0; translate: 0 80px;
+  transition: opacity .8s ease, translate .9s cubic-bezier(.2,.7,.2,1), transform .25s ease;
+  transition-delay: var(--d), var(--d), 0s;
+}
+.js .playground .play-card:nth-child(1) { --d: 0s; }
+.js .playground .play-card:nth-child(2) { --d: .12s; }
+.js .playground .play-card:nth-child(3) { --d: .24s; }
+.js .playground .play-card:nth-child(4) { --d: .36s; }
+.js .playground.in-view .play-card { opacity: 1; translate: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .playground .play-card { translate: none; transition: opacity .01s, transform .25s ease; }
+}
+
+/* ---------- Claude lab ---------- */
+.lab-frame { width: 502.215px; height: 669.619px; }
+.lab-paper { width: 480px; height: 332.743px; background: #fff; border-radius: 14px; }
+
+/* ---------- Footer ---------- */
+.footer { left: 0; top: 11946.5px; width: 1440px; height: 931.5px; }
+.footer .shade {
+  position: absolute; inset: 0; background-size: 100% 100%;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1440 931.5' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-3.2055e-14 64.632 -99.915 -2.4745e-14 720 285.18)'><stop stop-color='rgba(0,0,0,0)' offset='0.098799'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>");
+}
+
+/* ---------- Magical appear ---------- */
+/* Text fades up out of a soft, warm-glowing blur and settles crisp. */
+.appear { opacity: 0; }
+.hi-pill > span { display: inline-block; }
+.appear.shown { animation: appear 1.2s cubic-bezier(.2, .7, .2, 1) var(--appear-delay, 0s) forwards; }
+@keyframes appear {
+  0%   { opacity: 0; filter: blur(14px); translate: 0 14px; text-shadow: 0 0 .5em rgba(255, 214, 150, .9); }
+  55%  { opacity: 1; filter: blur(2px); text-shadow: 0 0 .4em rgba(255, 214, 150, .45); }
+  100% { opacity: 1; filter: blur(0); translate: 0 0; text-shadow: 0 0 0 rgba(255, 214, 150, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appear, .appear.shown { opacity: 1; animation: none; }
+}
+
+/* Claude lab: cards arrive one by one on scroll. */
+.js .lab-part {
+  opacity: 0; translate: 0 80px; scale: .96;
+  transition: opacity .7s ease, translate .9s cubic-bezier(.22, 1, .36, 1), scale .9s cubic-bezier(.22, 1, .36, 1);
+}
+.js .lab-part.shown { opacity: 1; translate: none; scale: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .lab-part { translate: none; scale: none; transition: opacity .01s; }
+}
+
+/* Pocket watch: live hands pivot on the dial centre of about-watch-face.png (49.9%, 58.2%). */
+.watch-hands { position: absolute; left: 49.9%; top: 58.2%; width: 0; height: 0; pointer-events: none; }
+.watch-hands .hand {
+  position: absolute; left: 0; bottom: 0; display: block; border-radius: 2px;
+  transform-origin: 50% 100%; transform: translateX(-50%) rotate(var(--a, 0deg));
+  background: linear-gradient(to top, #3b120c, #6e2418); box-shadow: 0 0 0 .4px rgba(25, 8, 4, .9), 0 1px 1.5px rgba(0, 0, 0, .45);
+}
+.watch-hands .hour { width: 3.8px; height: 26px; }
+.watch-hands .minute { width: 2.8px; height: 40px; }
+.watch-hands .second { width: 1px; height: 38px; margin-bottom: -7px; transform-origin: 50% calc(100% - 7px); background: #3a2410; }
+.watch-hands .hub { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9a4a2c, #3b120c); box-shadow: 0 0 1px #000; }

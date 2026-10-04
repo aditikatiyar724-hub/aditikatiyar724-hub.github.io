@@ -1,0 +1,5 @@
+.DS_Store
+# Unused design exports (not referenced by the site)
+/hero.png
+/blurr.png
+/Group *.png
