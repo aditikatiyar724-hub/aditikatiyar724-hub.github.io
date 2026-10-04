@@ -379,8 +379,11 @@ html.lenis, html.lenis body { height: auto; }
 .back-sheet .clip > img { left: -64.99%; top: -13.14%; width: 210.46%; height: 125.44%; }
 .photo-card { width: 472.823px; height: 290.004px; background: #fff; border-radius: 24px; overflow: hidden; }
 .photo-card > img { position: absolute; left: calc(50% + 0.35px); top: calc(50% - 82.87px); width: 486.061px; height: 648.082px; transform: translate(-50%, -50%); object-fit: cover; }
-/* Gamification and user research cards: the artwork fills the card. */
-.photo-card:is(.work1-art, .work2-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: cover; }
+/* Gamification and user research cards: the full 486x270 artwork sits 7px inside the white sheet, as in Figma. */
+.photo-card:is(.work1-art, .work2-art) { width: 486px; height: 270px; }
+.photo-card:is(.work1-art, .work2-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: fill; }
+.work-card .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.8px, 13.68px); }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { transform: translate(-2.38px, -17.87px) rotate(-4deg); }
 .folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
 .folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
 .folder-bottom { width: 168.439px; height: 564.202px; transform: rotate(-90deg); }
