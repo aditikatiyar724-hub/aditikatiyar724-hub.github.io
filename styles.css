@@ -189,6 +189,7 @@ html.lenis, html.lenis body { height: auto; }
 .round { border-radius: 999px; }
 .about-title { font: 88px/1 var(--hand); letter-spacing: -1.76px; color: #000; white-space: nowrap; transform: rotate(-9deg); }
 .about-title .ch:nth-child(4) { margin-left: 8px; } /* open up the touching "u" and "t" */
+#lab h2 .ch:nth-child(10) { margin-left: 4px; } /* open up the touching "i" and "t" */
 .about-body { width: 495.065px; font: 24px/2 var(--hand); color: #000; transform: rotate(-9deg); }
 .about-body em { font-style: normal; color: var(--accent); }
 
