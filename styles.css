@@ -423,6 +423,9 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- Claude lab ---------- */
 .lab-frame { width: 502.215px; height: 669.619px; }
 .lab-paper { width: 480px; height: 332.743px; background: #fff; border-radius: 14px; }
+.lab-arrow { position: absolute; pointer-events: none; }
+.lab-arrow .fill { object-fit: fill; }
+.lab-note { margin: 0; font: 22px/1 var(--hand); letter-spacing: -0.44px; color: #e7bb71; white-space: nowrap; }
 
 /* ---------- Footer ---------- */
 .footer { left: 0; top: 11946.5px; width: 1440px; height: 931.5px; }
