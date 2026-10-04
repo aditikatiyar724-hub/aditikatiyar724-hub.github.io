@@ -251,6 +251,20 @@
   window.addEventListener('scroll', updateLab, { passive: true });
   window.addEventListener('resize', updateLab);
 
+  // Scroll-to-top button: shown once the About section is well into view (and through My Work onward).
+  const toTop = document.getElementById('to-top');
+  const about = document.querySelector('.about');
+  if (toTop && about) {
+    const updateToTop = () => toTop.classList.toggle('show', about.getBoundingClientRect().top < window.innerHeight * 0.6);
+    updateToTop();
+    window.addEventListener('scroll', updateToTop, { passive: true });
+    window.addEventListener('resize', updateToTop);
+    toTop.addEventListener('click', () => {
+      if (lenis) lenis.scrollTo(0, { duration: 2 });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   // Smooth-scroll in-page links, accounting for the scaled canvas.
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href^="#"]');

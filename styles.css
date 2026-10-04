@@ -455,3 +455,25 @@ html.lenis, html.lenis body { height: auto; }
 .watch-hands .minute { width: 2.8px; height: 40px; }
 .watch-hands .second { width: 1px; height: 38px; margin-bottom: -7px; transform-origin: 50% calc(100% - 7px); background: #3a2410; }
 .watch-hands .hub { position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #9a4a2c, #3b120c); box-shadow: 0 0 1px #000; }
+
+/* ---------- Scroll-to-top button (fixed, outside the scaled canvas) ---------- */
+.to-top {
+  position: fixed; right: 32px; bottom: 32px; z-index: 50; width: 50px; height: 50px; padding: 0;
+  border: 0; border-radius: 66px; cursor: pointer; color: #fff;
+  background: rgba(20, 20, 20, 0.6); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden; translate: 0 16px; scale: .9;
+  transition: opacity .4s ease, translate .5s cubic-bezier(.2,.7,.2,1), scale .5s cubic-bezier(.2,.7,.2,1), visibility 0s .5s;
+}
+.to-top.show { opacity: 1; visibility: visible; translate: none; scale: none; transition-delay: 0s; }
+.to-top:hover { scale: 1.08; }
+.to-top:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.6); outline-offset: 3px; }
+.to-top-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: to-top-spin 12s linear infinite; }
+.to-top-ring text { font: 600 5.4px var(--round); fill: rgba(255, 255, 255, 0.5); letter-spacing: .4px; }
+.to-top-arrow { position: absolute; left: 13px; top: 13px; width: 24px; height: 24px; transition: translate .3s ease; }
+.to-top:hover .to-top-arrow { translate: 0 -2px; }
+@keyframes to-top-spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) {
+  .to-top-ring { animation: none; }
+  .to-top { translate: none; scale: none; transition: opacity .01s, visibility 0s; }
+}
+
