@@ -374,6 +374,9 @@ html.lenis, html.lenis body { height: auto; }
   .js .work-card { translate: none; scale: none; transition: opacity .01s; }
 }
 .work-title { font: 500 32px/1 var(--round); white-space: nowrap; }
+/* Placeholder folders: drained to grey, with a handwritten note across the front. */
+.work-card.soon > * { filter: grayscale(1); }
+.soon-label { left: 0; right: 0; top: 440px; text-align: center; font: 52px/1 var(--hand); color: rgba(0, 0, 0, 0.62); transform: rotate(-4deg); pointer-events: none; }
 .back-sheet { width: 298.93px; height: 501.558px; border-radius: 24px; }
 .back-sheet .clip { border-radius: 24px; }
 .back-sheet .clip > img { left: -64.99%; top: -13.14%; width: 210.46%; height: 125.44%; }
