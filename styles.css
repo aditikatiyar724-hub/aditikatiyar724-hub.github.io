@@ -350,6 +350,8 @@ html.lenis, html.lenis body { height: auto; }
 .work-card:is(:hover, :focus-visible) .off-hover { opacity: 0; }
 .work-card .tilt { transform: translateY(31.64px); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
 .work-card:is(:hover, :focus-visible) .tilt { transform: rotate(-4deg); }
+.work-card .sheet-tilt { transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.work-card:is(:hover, :focus-visible) .sheet-tilt { transform: translateY(-31.6px) rotate(-4deg); }
 /* Scroll reveal: each folder rises and fades in as it enters the viewport (stagger via --d). */
 .js .work-card {
   opacity: 0; translate: 0 80px; scale: .96;
