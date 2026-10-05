@@ -407,7 +407,8 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- Design playground ---------- */
 .playground { left: 38px; top: 10146px; display: flex; gap: 32px; align-items: center; }
-.play-card { width: 317px; height: 461px; background: #fff; border-radius: 28px; flex: none; transition: transform .25s ease; }
+.play-card { position: relative; width: 317px; height: 461px; background: #1c1c1c; border-radius: 28px; overflow: hidden; flex: none; transition: transform .25s ease; }
+.play-card > .fill { object-fit: contain; }
 .play-card:hover { transform: translateY(-8px); }
 /* Cards rise in one after another when the row scrolls into view. */
 .js .playground .play-card {
@@ -419,6 +420,8 @@ html.lenis, html.lenis body { height: auto; }
 .js .playground .play-card:nth-child(2) { --d: .12s; }
 .js .playground .play-card:nth-child(3) { --d: .24s; }
 .js .playground .play-card:nth-child(4) { --d: .36s; }
+.js .playground .play-card:nth-child(5) { --d: .48s; }
+.js .playground .play-card:nth-child(6) { --d: .6s; }
 .js .playground.in-view .play-card { opacity: 1; translate: none; }
 @media (prefers-reduced-motion: reduce) {
   .js .playground .play-card { translate: none; transition: opacity .01s, transform .25s ease; }
