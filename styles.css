@@ -24,7 +24,7 @@ html.lenis, html.lenis body { height: auto; }
 .viewport { position: relative; width: 100%; height: calc(11360px * var(--scale)); overflow: hidden; }
 .stage {
   position: absolute; top: 0; left: 0;
-  width: 1440px; height: 11360px;
+  width: 1440px; height: 11100px;
   transform: scale(var(--scale)); transform-origin: 0 0;
   overflow: hidden; background: #000;
 }
@@ -406,7 +406,7 @@ html.lenis, html.lenis body { height: auto; }
 /* Cards 2-4 share one layout, positioned from the group origin. */
 
 /* ---------- Design playground ---------- */
-.playground { left: 38px; top: 10146px; display: flex; gap: 32px; align-items: center; }
+.playground { left: 38px; top: 9886px; display: flex; gap: 32px; align-items: center; }
 .play-card { position: relative; width: 317px; height: 461px; background: #1c1c1c; border-radius: 28px; overflow: hidden; flex: none; transition: transform .25s ease; }
 .play-card > .fill { object-fit: contain; }
 .play-card:hover { transform: translateY(-8px); }
@@ -439,7 +439,7 @@ html.lenis, html.lenis body { height: auto; }
 .lab-note { margin: 0; font: 22px/1 var(--hand); letter-spacing: -0.44px; color: #e7bb71; white-space: nowrap; }
 
 /* ---------- Connect ---------- */
-.connect { left: 410.8px; top: 10880px; width: 618.4px; display: flex; flex-direction: column; align-items: center; gap: 38px; }
+.connect { left: 410.8px; top: 10620px; width: 618.4px; display: flex; flex-direction: column; align-items: center; gap: 38px; }
 .connect h2 { width: 100%; font: 400 88px/1 var(--hand); letter-spacing: -1.76px; text-align: center; color: #fff; }
 .connect-row { display: flex; align-items: center; gap: 39px; width: 100%; }
 .connect-socials { display: flex; gap: 14.4px; }
