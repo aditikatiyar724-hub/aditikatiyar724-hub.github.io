@@ -21,10 +21,10 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 /* The design is a fixed 1440px canvas; it is scaled to the viewport width. */
-.viewport { position: relative; width: 100%; height: calc(12878px * var(--scale)); overflow: hidden; }
+.viewport { position: relative; width: 100%; height: calc(13279px * var(--scale)); overflow: hidden; }
 .stage {
   position: absolute; top: 0; left: 0;
-  width: 1440px; height: 12878px;
+  width: 1440px; height: 13279px;
   transform: scale(var(--scale)); transform-origin: 0 0;
   overflow: hidden; background: #000;
 }
