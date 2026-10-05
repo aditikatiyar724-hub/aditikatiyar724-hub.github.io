@@ -36,6 +36,17 @@
   }, { threshold: 0.25 });
   document.querySelectorAll('.about, .experience, .playground').forEach((el) => reveal.observe(el));
 
+  // Playground: repeat the cards once so the slow sideways drift loops without a gap.
+  const playground = document.querySelector('.playground');
+  if (playground) {
+    [...playground.children].forEach((card) => {
+      const copy = card.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.tabIndex = -1;
+      playground.appendChild(copy);
+    });
+  }
+
   // Fireflies: scattered with random size, drift and pulse so none move in sync.
   const rand = (min, max) => min + Math.random() * (max - min);
   const insidePolygon = (x, y, pts) => {

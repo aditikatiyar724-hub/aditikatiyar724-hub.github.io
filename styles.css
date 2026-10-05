@@ -423,8 +423,12 @@ html.lenis, html.lenis body { height: auto; }
 .js .playground .play-card:nth-child(5) { --d: .48s; }
 .js .playground .play-card:nth-child(6) { --d: .6s; }
 .js .playground.in-view .play-card { opacity: 1; translate: none; }
+/* Once revealed, the row drifts left very slowly and loops: one set of 6 cards = 6 × (317 + 32)px. */
+.js .playground.in-view { animation: play-drift 90s linear 1.5s infinite; }
+@keyframes play-drift { to { transform: translateX(-2094px); } }
 @media (prefers-reduced-motion: reduce) {
   .js .playground .play-card { translate: none; transition: opacity .01s, transform .25s ease; }
+  .js .playground.in-view { animation: none; }
 }
 
 /* ---------- Claude lab ---------- */
