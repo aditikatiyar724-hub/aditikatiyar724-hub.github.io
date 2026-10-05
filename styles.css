@@ -441,6 +441,18 @@ html.lenis, html.lenis body { height: auto; }
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1440 931.5' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-3.2055e-14 64.632 -99.915 -2.4745e-14 720 285.18)'><stop stop-color='rgba(0,0,0,0)' offset='0.098799'/><stop stop-color='rgba(0,0,0,1)' offset='1'/></radialGradient></defs></svg>");
 }
 
+/* ---------- Connect ---------- */
+.connect { left: 410.8px; top: 12985px; width: 618.4px; display: flex; flex-direction: column; align-items: center; gap: 38px; }
+.connect h2 { width: 100%; font: 400 88px/1 var(--hand); letter-spacing: -1.76px; text-align: center; color: #fff; }
+.connect-row { display: flex; align-items: center; gap: 39px; width: 100%; }
+.connect-socials { display: flex; gap: 14.4px; }
+.connect-icon { width: 60px; height: 60px; border-radius: 12px; overflow: hidden; background: #fff; transition: transform .25s ease; }
+.connect-icon:hover { transform: translateY(-4px); }
+.connect-icon img { width: 100%; height: 100%; object-fit: cover; }
+.connect-info { display: flex; align-items: center; gap: 18px; font: 400 24px/normal var(--round); color: #fff; white-space: nowrap; }
+.connect-info a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.connect-sep { width: 1px; height: 18.4px; background: rgba(255, 255, 255, .5); }
+
 /* ---------- Magical appear ---------- */
 /* Text fades up out of a soft, warm-glowing blur and settles crisp. */
 .appear { opacity: 0; }
