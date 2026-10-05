@@ -10,6 +10,15 @@
   fit();
   window.addEventListener('resize', fit);
 
+  // Sharp versions of zoomable images load after the page, so first paint stays light; swap once decoded.
+  window.addEventListener('load', () => {
+    document.querySelectorAll('img[data-hd]').forEach((img) => {
+      const hd = new Image();
+      hd.src = img.dataset.hd;
+      hd.decode().then(() => { img.src = hd.src; }, () => {});
+    });
+  });
+
   // Inertial smooth scrolling (Lenis): the page glides to a stop, and scroll-driven scenes update in the
   // same frame as the scroll itself, so pinned elements don't shudder. Skipped for reduced motion.
   const lenis = window.Lenis && !matchMedia('(prefers-reduced-motion: reduce)').matches
