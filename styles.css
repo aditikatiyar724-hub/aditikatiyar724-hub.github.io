@@ -394,7 +394,7 @@ html.lenis, html.lenis body { height: auto; }
 .work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.42px, -9.56px) rotate(-4deg); }
 /* On hover the artwork slides up out of the folder, clears its lip, then drops back down in front of it.
    Leaving plays it in reverse (.touched is set by script.js so the reverse never runs on page load). */
-.photo-card:is(.work1-art, .work2-art) { --rest: translate(-1.42px, 22.04px); --peak: translate(-1.42px, -242px) rotate(-2deg); --out: translate(-1.42px, -112px) rotate(-4deg) scale(1.04); }
+.photo-card:is(.work1-art, .work2-art) { --rest: translate(-1.42px, 22.04px); --peak: translate(-1.42px, -242px) rotate(-2deg); --out: translate(-1.42px, 4px) rotate(-4deg) scale(1.04); }
 .work-card.touched .photo-card:is(.work1-art, .work2-art) { animation: art-tuck-in .75s both; }
 .work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { animation: art-pull-out .8s both; }
 .work-card .lift > .seal { z-index: 6; }
