@@ -398,6 +398,9 @@ html.lenis, html.lenis body { height: auto; }
 .work-card.touched .photo-card:is(.work1-art, .work2-art) { animation: art-tuck-in .75s both; }
 .work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { animation: art-pull-out .8s both; }
 .work-card .lift > .seal { z-index: 6; }
+/* The folder and paper clip drop into the spotlight blur too, so only the pulled-out artwork stays sharp. */
+.work-card .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { transition: filter .4s ease; }
+.work-card:is(:hover, :focus-visible):has(.work1-art, .work2-art) .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { filter: blur(6px) brightness(.35); }
 @keyframes art-pull-out {
   0% { transform: var(--rest); z-index: 0; animation-timing-function: cubic-bezier(.3,0,.2,1); }
   48% { transform: var(--peak); z-index: 0; animation-timing-function: cubic-bezier(.4,0,.2,1); }
