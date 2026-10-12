@@ -387,7 +387,8 @@ html.lenis, html.lenis body { height: auto; }
 .photo-card > img { position: absolute; left: calc(50% + 0.35px); top: calc(50% - 82.87px); width: 486.061px; height: 648.082px; transform: translate(-50%, -50%); object-fit: cover; }
 /* Gamification and user research cards: the 500x300 artwork has its own frame, so it takes the white sheet's place and moves as the sheet did. */
 .work-card:has(.work1-art, .work2-art) .sheet-tilt { display: none; }
-.photo-card:is(.work1-art, .work2-art) { width: 500px; height: 300px; }
+/* The artwork carries its own transparent 30px corners, so the white card background must not show around them. */
+.photo-card:is(.work1-art, .work2-art) { width: 500px; height: 300px; background: none; border-radius: 30px; }
 .photo-card:is(.work1-art, .work2-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: fill; }
 .work-card .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.42px, 22.04px); }
 .work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.42px, -9.56px) rotate(-4deg); }
