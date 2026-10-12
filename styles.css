@@ -447,6 +447,7 @@ html.lenis, html.lenis body { height: auto; }
 .folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
 .folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
 .folder-bottom { width: 168.439px; height: 564.202px; transform: rotate(-90deg); }
+.folder-bottom .clip { border-radius: 24px 0 0 24px; }
 .folder-bottom .clip > img { left: -32.73%; top: 0; width: 334.96%; height: 100%; }
 /* The wax seal trails the cursor (offsets set in script.js); it must not catch the pointer or the card would never lose hover. */
 .work-card .lift > .seal { pointer-events: none; translate: var(--seal-x, 0) var(--seal-y, 0); transition: opacity .35s ease, translate .18s ease-out; }
