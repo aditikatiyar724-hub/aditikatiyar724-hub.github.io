@@ -104,6 +104,13 @@
   }, { threshold: 0.2 });
   document.querySelectorAll('.work-card').forEach((el) => cardReveal.observe(el));
 
+  // Work cards: mark a card once hovered so leaving it plays the tuck-back animation.
+  document.querySelectorAll('.work-card').forEach((card) => {
+    const touch = () => card.classList.add('touched');
+    card.addEventListener('pointerenter', touch);
+    card.addEventListener('focusin', touch);
+  });
+
   // Work cards: the wax seal follows the cursor, centred on it, in the card's unscaled design coordinates.
   document.querySelectorAll('.work-card').forEach((card) => {
     const lift = card.querySelector('.lift');
