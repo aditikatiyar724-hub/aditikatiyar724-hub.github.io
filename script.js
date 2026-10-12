@@ -66,14 +66,16 @@
     }
     return inside;
   };
-  function spawnFireflies(layer, { count, drift, area }) {
+  function spawnFireflies(layer, { count, drift, area, weight }) {
     // Sample inside the area's bounding box (or the whole layer when no area is given).
+    // weight(t), t = 0 at the top to 1 at the bottom, optionally thins them out by height.
     const xs = area ? area.map((p) => p[0]) : [0, layer.offsetWidth];
     const ys = area ? area.map((p) => p[1]) : [0, layer.offsetHeight];
+    const [y0, y1] = [Math.min(...ys), Math.max(...ys)];
     for (let i = 0; i < count; i++) {
       let x, y;
-      do { x = rand(Math.min(...xs), Math.max(...xs)); y = rand(Math.min(...ys), Math.max(...ys)); }
-      while (area && !insidePolygon(x, y, area));
+      do { x = rand(Math.min(...xs), Math.max(...xs)); y = rand(y0, y1); }
+      while ((area && !insidePolygon(x, y, area)) || (weight && Math.random() > weight((y - y0) / (y1 - y0))));
       const f = document.createElement('span');
       f.className = 'firefly';
       f.style.cssText = `left:${x.toFixed(0)}px;top:${y.toFixed(0)}px;` +
@@ -83,6 +85,10 @@
     }
   }
   spawnFireflies(document.querySelector('.fireflies'), { count: 28, drift: 70 });
+  // Work card hover backdrop: fireflies gather along the bottom of the screen and only a few stray up top.
+  document.querySelectorAll('.work-fireflies').forEach((layer) => {
+    spawnFireflies(layer, { count: 26, drift: 60, weight: (t) => 0.05 + 0.95 * t * t });
+  });
   // Lamp: kept inside the pool of light, a bowl that is wide at the top and narrows under the lamp base.
   spawnFireflies(document.querySelector('.lamp-fireflies'), {
     count: 18, drift: 25,

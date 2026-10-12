@@ -412,6 +412,10 @@ html.lenis, html.lenis body { height: auto; }
 .work-dim-glow { position: absolute; max-width: none; }
 .work-dim-glow.screen { mix-blend-mode: screen; }
 .work-card:is(:hover, :focus-visible) .work-dim { opacity: 1; transition-delay: .3s; }
+/* Hover backdrop fireflies (spawned in script.js, viewport-sized around the card), tinted to each card's glow. */
+.work-fireflies { position: absolute; --ff-core: #ffc6e4; --ff-glow: rgba(255, 110, 190, .4); --ff-halo: rgba(240, 70, 160, .14); }
+.work-dim:has(img[src*="green"]) .work-fireflies { --ff-core: #dcf5b8; --ff-glow: rgba(150, 215, 90, .4); --ff-halo: rgba(110, 180, 60, .14); }
+.work-card:is(:hover, :focus-visible) .work-fireflies .firefly { animation-play-state: running; }
 /* The folder and paper clip drop into the spotlight blur too, so only the pulled-out artwork stays sharp. */
 .work-card .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { transition: filter .4s ease; }
 .work-card:is(:hover, :focus-visible):has(.work1-art, .work2-art) .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { filter: blur(6px) brightness(.35); }
