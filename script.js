@@ -111,6 +111,29 @@
     card.addEventListener('focusin', touch);
   });
 
+  // Work cards: the artwork tilts toward the cursor (parallax) and its glare follows it.
+  document.querySelectorAll('.work-card').forEach((card) => {
+    const art = card.querySelector('.photo-card:is(.work1-art, .work2-art)');
+    if (!art) return;
+    card.addEventListener('pointermove', (e) => {
+      const r = card.querySelector('.lift').getBoundingClientRect();
+      const nx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+      const ny = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height) * 2 - 1));
+      const mag = Math.hypot(nx, ny) || 1;
+      art.style.setProperty('--tx', (-ny / mag).toFixed(3));
+      art.style.setProperty('--ty', (nx / mag).toFixed(3));
+      art.style.setProperty('--ta', `${(Math.min(1, Math.hypot(nx, ny)) * 10).toFixed(2)}deg`);
+      art.style.setProperty('--px', (-nx).toFixed(3));
+      art.style.setProperty('--py', (-ny).toFixed(3));
+      const a = art.getBoundingClientRect();
+      art.style.setProperty('--gx', `${((e.clientX - a.left) / a.width) * 100}%`);
+      art.style.setProperty('--gy', `${((e.clientY - a.top) / a.height) * 100}%`);
+    });
+    card.addEventListener('pointerleave', () => {
+      ['--tx', '--ty', '--ta', '--px', '--py', '--gx', '--gy'].forEach((v) => art.style.removeProperty(v));
+    });
+  });
+
   // Work cards: the wax seal follows the cursor, centred on it, in the card's unscaled design coordinates.
   document.querySelectorAll('.work-card').forEach((card) => {
     const lift = card.querySelector('.lift');

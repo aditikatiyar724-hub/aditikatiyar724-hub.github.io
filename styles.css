@@ -410,8 +410,36 @@ html.lenis, html.lenis body { height: auto; }
   45% { z-index: 0; animation-timing-function: cubic-bezier(.4,0,.2,1); }
   100% { transform: var(--rest); z-index: 0; }
 }
+/* Parallax: while hovered the artwork tilts in 3D toward the cursor and drifts against it (--tx/--ty/--ta/--px/--py set in script.js). */
+/* perspective makes the box its own stacking context, so the in-front swap happens on the box: timed to the top of the pull-out and tuck-in arcs. */
+.box:has(> .photo-card:is(.work1-art, .work2-art)) { perspective: 900px; z-index: 0; transition: z-index 0s .33s; }
+.work-card:is(:hover, :focus-visible) .box:has(> .photo-card:is(.work1-art, .work2-art)) { z-index: 5; transition-delay: .39s; }
+.photo-card:is(.work1-art, .work2-art) {
+  rotate: var(--tx, 0) var(--ty, 1) 0 var(--ta, 0deg);
+  translate: calc(var(--px, 0) * 10px) calc(var(--py, 0) * 8px);
+  transition: rotate .25s ease-out, translate .25s ease-out;
+}
+/* Shine: a soft glare tracks the cursor, and a bright band sweeps across once the card settles in front. */
+.photo-card:is(.work1-art, .work2-art)::before,
+.photo-card:is(.work1-art, .work2-art)::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; }
+.photo-card:is(.work1-art, .work2-art)::before {
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgba(255, 255, 255, .32), rgba(255, 255, 255, 0) 55%);
+  mix-blend-mode: soft-light; transition: opacity .35s ease;
+}
+.photo-card:is(.work1-art, .work2-art)::after {
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, .45) 49%, rgba(255, 255, 255, .6) 50%, rgba(255, 255, 255, .45) 51%, rgba(255, 255, 255, 0) 58%) no-repeat;
+  background-size: 300% 100%; mix-blend-mode: screen;
+}
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art)::before { opacity: 1; }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art)::after { animation: art-shine 1.1s .65s ease-in-out both; }
+@keyframes art-shine {
+  0% { opacity: 1; background-position: 100% 0; }
+  85% { opacity: 1; }
+  100% { opacity: 0; background-position: 0 0; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .work-card .photo-card:is(.work1-art, .work2-art) { animation: none !important; }
+  .work-card .photo-card:is(.work1-art, .work2-art) { animation: none !important; rotate: none; translate: none; }
+  .work-card .photo-card:is(.work1-art, .work2-art)::after { animation: none !important; }
 }
 .folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
 .folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
