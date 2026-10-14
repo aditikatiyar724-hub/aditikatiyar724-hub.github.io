@@ -193,6 +193,7 @@
     const STEP = 600;
     const PIN = ZOOM_AT + STEP * 4; // must match the space reserved below the section
     const REVEAL = { lantern: [-550, -150], room: [-350, 50], map: [-150, 300] };
+    const GLOW = [-150, 100]; // lantern brightens from dim to full as it settles onto the floor
     const SMOOTH = 0.16; // seconds for the eased position to close most of the gap
     const MAX_SPEED = 2200; // design px per second
     const ease = (t) => t * t * (3 - 2 * t);
@@ -268,6 +269,8 @@
       const [lx, ly] = at(STOPS.lantern, p);
       lantern.style.opacity = show.lantern;
       lantern.style.transform = `translate(${lx}px, ${ly - (1 - show.lantern) * 80}px)`;
+      // Dim while it drops in; the flame swells to full once the floor has come up under it.
+      lantern.style.setProperty('--glow', ease(span(GLOW, eased)).toFixed(3));
       const [vx, vy, vs] = at(STOPS.vignette, p);
       vignette.style.transform = `translate(${vx}px, ${vy}px) scaleY(${vs})`;
       fadeMid.style.opacity = at(STOPS.fadeMid, p);

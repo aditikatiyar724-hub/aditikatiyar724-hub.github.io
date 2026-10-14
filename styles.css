@@ -292,6 +292,14 @@ html.lenis, html.lenis body { height: auto; }
   background: rgba(0,0,0,.85);
   filter: blur(3px);
 }
+/* The flame burns low while the lantern drops in and reaches full glow once it lands on the floor (script.js sets --glow 0..1). */
+.exp-lantern { --glow: 1; }
+.exp-lantern-img { filter: brightness(calc(0.35 + 0.65 * var(--glow))) saturate(calc(0.6 + 0.4 * var(--glow))); }
+.exp-lantern-halo {
+  left: 103px; top: 131px; width: 400px; height: 400px; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 196, 92, .55), rgba(255, 150, 40, .22) 45%, rgba(255, 120, 20, 0));
+  mix-blend-mode: screen; opacity: var(--glow);
+}
 /* Lamplight glow on the paper (Figma Ellipse 22703), blended over the map only. */
 .exp-map > .exp-map-glow { position: absolute; left: 322.36px; top: 238.13px; width: 670.44px; height: 485.919px; mix-blend-mode: overlay; }
 .exp-map-glow > div { position: relative; width: 617.085px; height: 396.153px; transform: rotate(-8.8deg); }
