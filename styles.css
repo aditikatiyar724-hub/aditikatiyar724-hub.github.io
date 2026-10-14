@@ -335,34 +335,34 @@ html.lenis, html.lenis body { height: auto; }
 .experience, .exp-room, .exp-map, .exp-lantern, .exp-vignette { will-change: transform, opacity; }
 .exp-vignette { transform-origin: 0 0; }
 
-/* Experience stop: an ivory glass travel ticket. The logo stamp is pinned on over the left edge, and the
-   dates sit on a tear-off stub behind a perforated line with punched notches. */
+/* Experience stop: a smoked-glass card with a warm hairline edge; the logo stamp is pinned on, overhanging the left. */
 .exp-tag {
-  --stub: 196px;
-  display: flex; gap: 22px; align-items: center; padding: 24px 0; border-radius: 26px; isolation: isolate;
-}
-/* Ticket body: drawn on a pseudo-element so the notch mask doesn't clip the overhanging stamp. */
-.exp-tag::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none;
+  display: flex; gap: 22px; align-items: center; padding: 22px 28px 22px 0; border-radius: 28px;
   background:
-    radial-gradient(90% 120% at 0% 0%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 60%),
-    linear-gradient(180deg, rgba(255, 250, 238, .9), rgba(246, 232, 204, .86));
-  -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7), inset 0 -2px 0 rgba(150, 100, 30, .12);
-  --notch: radial-gradient(circle 13px at calc(100% - var(--stub)) 0, #0000 97%, #000);
-  -webkit-mask: var(--notch), radial-gradient(circle 13px at calc(100% - var(--stub)) 100%, #0000 97%, #000);
-  -webkit-mask-composite: source-in;
-  mask: var(--notch), radial-gradient(circle 13px at calc(100% - var(--stub)) 100%, #0000 97%, #000);
-  mask-composite: intersect;
+    radial-gradient(120% 140% at 0% 0%, rgba(231, 187, 113, .16), rgba(231, 187, 113, 0) 55%),
+    linear-gradient(160deg, rgba(34, 24, 12, .82), rgba(10, 8, 5, .9));
+  -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: inset 0 1px 0 rgba(255, 236, 200, .14), 0 30px 60px -20px rgba(0, 0, 0, .7), 0 10px 24px -8px rgba(60, 30, 0, .5);
+  isolation: isolate; overflow: visible;
 }
-/* Soft lifted shadow, kept separate from the masked body. */
+/* Gradient hairline border: bright amber at the top-left, fading out along the bottom-right. */
 .exp-tag::before {
-  content: ""; position: absolute; inset: 14px 18px -6px; border-radius: inherit; z-index: -2; pointer-events: none;
-  background: rgba(40, 22, 0, .55); filter: blur(22px);
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(135deg, rgba(247, 210, 145, .75), rgba(231, 187, 113, .15) 40%, rgba(255, 255, 255, .04) 70%, rgba(231, 187, 113, .3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
 }
+/* A single light sweep across the glass as the card arrives. */
+.exp-tag::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 230, 180, .13) 50%, transparent 65%) no-repeat;
+  background-size: 250% 100%; background-position: 130% 0;
+}
+.exp-tag.on::after { animation: tag-sheen 1.4s .25s cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes tag-sheen { to { background-position: -30% 0; } }
 .tag-stamp {
-  position: relative; flex: none; width: 121px; height: 109.594px; margin-left: -38px; rotate: -6deg;
-  filter: drop-shadow(0 8px 10px rgba(60, 32, 0, .35));
+  position: relative; flex: none; width: 121px; height: 109.594px; margin-left: -40px; rotate: -7deg;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, .55));
 }
 .tag-stamp > .fill { object-fit: cover; }
 /* Logo face sits centred on the stamp; it is drawn flipped like the Figma layer, so logos flip back. */
@@ -374,44 +374,42 @@ html.lenis, html.lenis body { height: auto; }
 .stamp-face .shine { left: 50%; transform: translateX(-50%); mix-blend-mode: hard-light; }
 .stamp-face .shine > img { position: absolute; left: -94.23%; top: -94.23%; width: 288.46%; height: 288.46%; }
 .tag-text {
-  flex: 1 0 0; min-width: 1px; align-self: stretch; display: flex; align-items: center; justify-content: space-between;
-  white-space: nowrap; font-family: var(--round); color: #2a1906;
+  flex: 1 0 0; min-width: 1px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  white-space: nowrap; font-family: var(--round);
 }
 .tag-main { display: flex; flex-direction: column; }
 .tag-eyebrow {
-  align-self: flex-start; margin-bottom: 10px; padding: 5px 10px; border-radius: 999px;
-  font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
-  color: #8a5a12; background: rgba(214, 160, 70, .18);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: rgba(231, 187, 113, .85);
 }
-.tag-main h3 { font-size: 36px; line-height: 1.05; letter-spacing: -.015em; font-weight: 800; color: #24160a; }
-.tag-main p { margin-top: 6px; font-size: 18px; font-weight: 600; line-height: 1.2; color: rgba(42, 25, 6, .58); }
-/* Tear-off stub: dashed perforation on the left, tenure centred inside. */
-.tag-meta {
-  flex: none; width: var(--stub); align-self: stretch; margin: -24px 0; padding: 0 20px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  border-left: 2px dashed rgba(120, 78, 20, .3);
+.tag-eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+.tag-main h3 {
+  font-size: 38px; line-height: 1.05; letter-spacing: -.01em; font-weight: 700;
+  background: linear-gradient(180deg, #fff 30%, #f3dcb4); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.tag-meta::before { content: "Tenure"; font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 25, 6, .45); }
-.tag-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 800; letter-spacing: .01em; color: #24160a; }
-.tag-chip.ghost {
-  padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
-  color: #fff7e8; background: #2a1906;
+.tag-main p { margin-top: 6px; font-size: 19px; font-weight: 500; line-height: 1.2; color: rgba(255, 245, 228, .68); }
+.tag-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+  font-size: 14px; font-weight: 700; letter-spacing: .02em; color: #f5d59c;
+  background: rgba(231, 187, 113, .1); box-shadow: inset 0 0 0 1px rgba(231, 187, 113, .32);
 }
+.tag-chip.ghost { background: none; font-weight: 500; color: rgba(255, 245, 228, .6); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
 /* "Present" gets a live dot that breathes. */
-.tag-chip.live i { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #23b85c; box-shadow: 0 0 8px rgba(35, 184, 92, .7); }
-.tag-chip.live i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #23b85c; animation: live-ping 1.8s ease-out infinite; }
+.tag-chip.live i { position: relative; width: 8px; height: 8px; border-radius: 50%; background: #7ee2a0; box-shadow: 0 0 10px #7ee2a0; }
+.tag-chip.live i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #7ee2a0; animation: live-ping 1.8s ease-out infinite; }
 @keyframes live-ping { from { transform: scale(1); opacity: .7; } to { transform: scale(2.8); opacity: 0; } }
 /* Pop in when its step is reached: the tag rises in, then the stamp springs onto it.
    Hidden tags are also made invisible so their backdrop blur isn't composited while the map moves. */
 .exp-tag { opacity: 0; visibility: hidden; translate: 0 24px; scale: .96; transition: opacity .35s ease, translate .5s cubic-bezier(.2, .7, .2, 1), scale .5s cubic-bezier(.2, .7, .2, 1), visibility 0s .5s; }
 .exp-tag .tag-stamp { scale: .4; rotate: 14deg; opacity: 0; transition: opacity .25s ease, scale .55s cubic-bezier(.3, 1.6, .5, 1), rotate .7s cubic-bezier(.3, 1.6, .5, 1); }
 .exp-tag.on { opacity: 1; visibility: visible; translate: none; scale: none; transition-delay: 0s; }
-.exp-tag.on .tag-stamp { scale: none; rotate: -6deg; opacity: 1; transition-delay: .12s; }
+.exp-tag.on .tag-stamp { scale: none; rotate: -7deg; opacity: 1; transition-delay: .12s; }
 
 @media (prefers-reduced-motion: reduce) {
   .exp-tag, .exp-tag .tag-stamp { scale: none; translate: none; transition: opacity .01s; }
-  .exp-tag .tag-stamp { rotate: -6deg; }
-  .tag-chip.live i::after { animation: none; }
+  .exp-tag .tag-stamp { rotate: -7deg; }
+  .exp-tag.on::after, .tag-chip.live i::after { animation: none; }
 }
 
 /* ---------- Section headings ---------- */
