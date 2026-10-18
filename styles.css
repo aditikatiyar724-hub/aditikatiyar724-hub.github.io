@@ -68,6 +68,7 @@ html.is-loading .hero-bg { animation-play-state: paused; }
 /* Hero stickers: the "Hi, I am" pill and the CashKaro badge pop onto the page like stickers being pressed on. */
 .js .hi-pill { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) .05s both; }
 .js .role-badge { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) 1.25s both; }
+html.is-loading .hi-pill, html.is-loading .role-badge { animation-play-state: paused; }
 @keyframes sticker-in {
   0%   { opacity: 0; scale: .55; rotate: -8deg; filter: blur(4px); }
   60%  { opacity: 1; filter: blur(0); }
