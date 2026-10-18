@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
 <!-- ================= Loader ================= -->
@@ -16,26 +16,26 @@
 <div class="loader" id="loader" aria-hidden="true">
   <p class="loader-text"><span class="loader-typed"></span><span class="loader-caret"></span></p>
   <div class="loader-count">
-    <span class="loader-digit"><span class="loader-strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="loader-digit"><span class="loader-strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span></span></span>
+    <span class="loader-digit"><span class="loader-strip"></span></span><span class="loader-digit"><span class="loader-strip"></span></span>
   </div>
 </div>
 <script>
-// Loader: types the welcome line while the corner counter rolls 00 -> 90, then waits for the page to
-// finish loading and rolls the last few numbers to 99 before fading away. Digits roll odometer-style:
-// each count, the ones strip slides up to the next digit, and the tens strip moves only on a carry.
+// Loader: types the welcome line while the two corner digits spin like slot-machine reels. Each round
+// the reels pick random digits and directions (sometimes together, sometimes opposite, sometimes one
+// alone). Once the page has loaded, both reels make a last spin and land on 99, then the loader fades.
 (function () {
   const root = document.documentElement;
   const loader = document.getElementById('loader');
   const typed = loader.querySelector('.loader-typed');
-  const [tens, ones] = loader.querySelectorAll('.loader-strip');
   const TEXT = 'WELCOME TO MY PORTFOLIO!!';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const FIRST = 90, LAST = 99;
-  const RUN = reduce ? 0 : 2400; // ms for 00 -> 90
-  const FINISH = reduce ? 0 : 900; // ms for 90 -> 99 once the page has loaded
+  const MIN_SHOW = reduce ? 0 : 4200; // ms; lets the typing finish and the reels spin a few rounds
   const MAX_WAIT = 10000; // never hold the page longer than this, even if an asset hangs
-  const ease = (t) => t * t * (3 - 2 * t);
-  const easeInOut = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  // Slot-machine stop: fast start, long ease-out, then a small kick past the digit that settles back.
+  const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+  const kick = (t) => (t < .7 ? 0 : .16 * Math.sin(Math.PI * (t - .7) / .3));
 
   // Scroll is locked while the loader is up (Lenis listens on window, so keep wheel/touch from reaching it).
   ['wheel', 'touchmove'].forEach((type) => loader.addEventListener(type, (e) => { e.preventDefault(); e.stopPropagation(); }, { passive: false }));
@@ -44,31 +44,63 @@
   if (reduce) typed.textContent = TEXT;
   else [...TEXT].forEach((c, i) => setTimeout(() => { typed.textContent += c; }, 300 + i * 70));
 
-  // Counter: value v is continuous; each whole number rests for the first half of its step and rolls
-  // to the next one during the second half.
-  const render = (v) => {
-    const n = Math.floor(v);
-    const roll = n >= LAST ? 0 : ease(Math.min(Math.max(((v - n) - .5) * 2, 0), 1));
-    ones.style.transform = `translateY(${-((n % 10) + roll)}em)`;
-    tens.style.transform = `translateY(${-(Math.floor(n / 10) + (n % 10 === 9 ? roll : 0))}em)`;
+  // Reels: each strip holds 0-9 three times; the middle copy is always in view, so it wraps seamlessly
+  // in either direction. pos is a continuous digit position (pos 3 shows "3"; increasing rolls upward).
+  const reels = [...loader.querySelectorAll('.loader-strip')].map((strip) => {
+    strip.innerHTML = '<span>' + '0123456789'.repeat(3).split('').join('</span><span>') + '</span>';
+    const reel = { strip, pos: 0, from: 0, to: 0, start: 0, dur: 0 };
+    reel.render = () => { strip.style.transform = `translateY(${-(((reel.pos % 10) + 10) % 10 + 10)}em)`; };
+    reel.render();
+    return reel;
+  });
+
+  // Spin a reel to digit `d`, passing `turns` full loops, rolling up (dir 1) or down (dir -1).
+  const spin = (reel, d, dir, turns, dur, delay = 0) => {
+    const cur = ((Math.round(reel.pos) % 10) + 10) % 10;
+    const steps = (dir > 0 ? (d - cur + 10) % 10 : (cur - d + 10) % 10) + turns * 10;
+    reel.from = Math.round(reel.pos);
+    reel.to = reel.from + dir * Math.max(steps, 1);
+    reel.start = performance.now() + delay;
+    reel.dur = dur;
+  };
+
+  // One random round: both reels together, opposite directions, or a single reel on its own.
+  const round = () => {
+    const [a, b] = reels;
+    const dir = pick([1, -1]);
+    const mode = pick(['together', 'together', 'opposite', 'single']);
+    if (mode === 'single') { spin(pick(reels), Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(700, 1100)); return; }
+    spin(a, Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(800, 1200));
+    spin(b, Math.floor(rand(0, 10)), mode === 'opposite' ? -dir : dir, pick([0, 1]), rand(900, 1300), rand(0, 160));
   };
 
   let loaded = document.readyState === 'complete';
   if (!loaded) window.addEventListener('load', () => { loaded = true; }, { once: true });
-  const start = performance.now();
-  let finishAt = 0;
+  const begin = performance.now();
+  let nextRound = begin + 250;
+  let finishing = 0;
 
   const frame = (now) => {
-    const t = now - start;
-    if (t < RUN) { render(FIRST * easeInOut(t / RUN)); requestAnimationFrame(frame); return; }
-    if (!finishAt) {
-      if (!loaded && t < MAX_WAIT) { render(FIRST); requestAnimationFrame(frame); return; }
-      finishAt = now;
+    let moving = false;
+    reels.forEach((r) => {
+      const t = r.dur ? Math.min(Math.max((now - r.start) / r.dur, 0), 1) : 1;
+      r.pos = r.from + (r.to - r.from) * easeOutQuart(t) + Math.sign(r.to - r.from) * kick(t);
+      if (t < 1) moving = true;
+      r.render();
+    });
+
+    if (finishing) {
+      if (!moving) { setTimeout(done, reduce ? 0 : 450); return; }
+    } else if (!moving && ((loaded && now - begin >= MIN_SHOW) || now - begin >= MAX_WAIT)) {
+      // Final spin: reels set off together and stop one after the other on 9 9.
+      finishing = now;
+      if (reduce) reels.forEach((r) => { r.from = r.to = r.pos = 9; r.dur = 0; r.render(); });
+      else { spin(reels[0], 9, 1, 1, 1300); spin(reels[1], 9, 1, 2, 1800); }
+    } else if (now >= nextRound && !moving && !reduce) {
+      round();
+      nextRound = now + rand(1300, 1700);
     }
-    const f = FINISH ? Math.min((now - finishAt) / FINISH, 1) : 1;
-    render(FIRST + (LAST - FIRST) * easeInOut(f));
-    if (f < 1) { requestAnimationFrame(frame); return; }
-    setTimeout(done, reduce ? 0 : 350);
+    requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
 
