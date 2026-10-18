@@ -29,8 +29,8 @@
   const typed = loader.querySelector('.loader-typed');
   const TEXT = 'WELCOME TO MY PORTFOLIO!!';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const MIN_SHOW = reduce ? 0 : 4200; // ms; lets the typing finish and the reels spin a few rounds
-  const MAX_WAIT = 10000; // never hold the page longer than this, even if an asset hangs
+  const MIN_SHOW = reduce ? 0 : 1400; // ms; just long enough for the typing to finish and a quick spin
+  const MAX_WAIT = 5000; // never hold the page longer than this, even if an asset hangs
   const rand = (a, b) => a + Math.random() * (b - a);
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   // Slot-machine stop: fast start, long ease-out, then a small kick past the digit that settles back.
@@ -42,7 +42,7 @@
 
   // Typing
   if (reduce) typed.textContent = TEXT;
-  else [...TEXT].forEach((c, i) => setTimeout(() => { typed.textContent += c; }, 300 + i * 70));
+  else [...TEXT].forEach((c, i) => setTimeout(() => { typed.textContent += c; }, 100 + i * 45));
 
   // Reels: each strip holds 0-9 three times; the middle copy is always in view, so it wraps seamlessly
   // in either direction. pos is a continuous digit position (pos 3 shows "3"; increasing rolls upward).
@@ -69,15 +69,15 @@
     const [a, b] = reels;
     const dir = pick([1, -1]);
     const mode = pick(['together', 'together', 'opposite', 'single']);
-    if (mode === 'single') { spin(pick(reels), Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(700, 1100)); return; }
-    spin(a, Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(800, 1200));
-    spin(b, Math.floor(rand(0, 10)), mode === 'opposite' ? -dir : dir, pick([0, 1]), rand(900, 1300), rand(0, 160));
+    if (mode === 'single') { spin(pick(reels), Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(450, 650)); return; }
+    spin(a, Math.floor(rand(0, 10)), dir, pick([0, 1]), rand(500, 700));
+    spin(b, Math.floor(rand(0, 10)), mode === 'opposite' ? -dir : dir, pick([0, 1]), rand(550, 750), rand(0, 100));
   };
 
   let loaded = document.readyState === 'complete';
   if (!loaded) window.addEventListener('load', () => { loaded = true; }, { once: true });
   const begin = performance.now();
-  let nextRound = begin + 250;
+  let nextRound = begin + 100;
   let finishing = 0;
 
   const frame = (now) => {
@@ -90,15 +90,15 @@
     });
 
     if (finishing) {
-      if (!moving) { setTimeout(done, reduce ? 0 : 450); return; }
-    } else if (!moving && ((loaded && now - begin >= MIN_SHOW) || now - begin >= MAX_WAIT)) {
-      // Final spin: reels set off together and stop one after the other on 9 9.
+      if (!moving) { setTimeout(done, reduce ? 0 : 150); return; }
+    } else if ((loaded && now - begin >= MIN_SHOW) || now - begin >= MAX_WAIT) {
+      // Final spin (cuts any round still in progress): reels set off together and stop one after the other on 9 9.
       finishing = now;
       if (reduce) reels.forEach((r) => { r.from = r.to = r.pos = 9; r.dur = 0; r.render(); });
-      else { spin(reels[0], 9, 1, 1, 1300); spin(reels[1], 9, 1, 2, 1800); }
+      else { spin(reels[0], 9, 1, 1, 650); spin(reels[1], 9, 1, 1, 900); }
     } else if (now >= nextRound && !moving && !reduce) {
       round();
-      nextRound = now + rand(1300, 1700);
+      nextRound = now + rand(700, 900);
     }
     requestAnimationFrame(frame);
   };
