@@ -8,9 +8,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
+<!-- ================= Loader ================= -->
+<script>document.documentElement.classList.add('is-loading');</script>
+<div class="loader" id="loader" aria-hidden="true">
+  <p class="loader-text"><span class="loader-typed"></span><span class="loader-caret"></span></p>
+  <div class="loader-count">
+    <span class="loader-digit"><span class="loader-strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="loader-digit"><span class="loader-strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span></span></span>
+  </div>
+</div>
+<script>
+// Loader: types the welcome line while the corner counter rolls 00 -> 90, then waits for the page to
+// finish loading and rolls the last few numbers to 99 before fading away. Digits roll odometer-style:
+// each count, the ones strip slides up to the next digit, and the tens strip moves only on a carry.
+(function () {
+  const root = document.documentElement;
+  const loader = document.getElementById('loader');
+  const typed = loader.querySelector('.loader-typed');
+  const [tens, ones] = loader.querySelectorAll('.loader-strip');
+  const TEXT = 'WELCOME TO MY PORTFOLIO!!';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FIRST = 90, LAST = 99;
+  const RUN = reduce ? 0 : 2400; // ms for 00 -> 90
+  const FINISH = reduce ? 0 : 900; // ms for 90 -> 99 once the page has loaded
+  const MAX_WAIT = 10000; // never hold the page longer than this, even if an asset hangs
+  const ease = (t) => t * t * (3 - 2 * t);
+  const easeInOut = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  // Scroll is locked while the loader is up (Lenis listens on window, so keep wheel/touch from reaching it).
+  ['wheel', 'touchmove'].forEach((type) => loader.addEventListener(type, (e) => { e.preventDefault(); e.stopPropagation(); }, { passive: false }));
+
+  // Typing
+  if (reduce) typed.textContent = TEXT;
+  else [...TEXT].forEach((c, i) => setTimeout(() => { typed.textContent += c; }, 300 + i * 70));
+
+  // Counter: value v is continuous; each whole number rests for the first half of its step and rolls
+  // to the next one during the second half.
+  const render = (v) => {
+    const n = Math.floor(v);
+    const roll = n >= LAST ? 0 : ease(Math.min(Math.max(((v - n) - .5) * 2, 0), 1));
+    ones.style.transform = `translateY(${-((n % 10) + roll)}em)`;
+    tens.style.transform = `translateY(${-(Math.floor(n / 10) + (n % 10 === 9 ? roll : 0))}em)`;
+  };
+
+  let loaded = document.readyState === 'complete';
+  if (!loaded) window.addEventListener('load', () => { loaded = true; }, { once: true });
+  const start = performance.now();
+  let finishAt = 0;
+
+  const frame = (now) => {
+    const t = now - start;
+    if (t < RUN) { render(FIRST * easeInOut(t / RUN)); requestAnimationFrame(frame); return; }
+    if (!finishAt) {
+      if (!loaded && t < MAX_WAIT) { render(FIRST); requestAnimationFrame(frame); return; }
+      finishAt = now;
+    }
+    const f = FINISH ? Math.min((now - finishAt) / FINISH, 1) : 1;
+    render(FIRST + (LAST - FIRST) * easeInOut(f));
+    if (f < 1) { requestAnimationFrame(frame); return; }
+    setTimeout(done, reduce ? 0 : 350);
+  };
+  requestAnimationFrame(frame);
+
+  function done() {
+    loader.classList.add('is-done');
+    root.classList.remove('is-loading');
+    window.dispatchEvent(new Event('loader:done'));
+    setTimeout(() => loader.remove(), 1000);
+  }
+})();
+</script>
 <div class="viewport" id="viewport">
 <main class="stage" id="stage">
 
@@ -427,6 +496,6 @@
   <img class="to-top-arrow" src="assets/icon-arrow-up.svg" alt="">
 </button>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>

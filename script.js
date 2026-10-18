@@ -163,7 +163,10 @@
   const appear = (el, delay) => { el.style.setProperty('--appear-delay', `${delay}s`); el.classList.add('appear'); };
   const heroText = [document.querySelector('.hi-pill > span'), document.querySelector('.hero-name'), document.querySelector('.role-chip')];
   heroText.forEach((el, i) => appear(el, 0.2 + i * 0.35));
-  requestAnimationFrame(() => heroText.forEach((el) => el.classList.add('shown')));
+  // While the loader is up, the hero intro waits and plays as the loader fades away.
+  const showHero = () => requestAnimationFrame(() => heroText.forEach((el) => el.classList.add('shown')));
+  if (document.documentElement.classList.contains('is-loading')) window.addEventListener('loader:done', showHero, { once: true });
+  else showHero();
 
   const onScroll = new Map();
   document.querySelectorAll('.heading').forEach((h) => onScroll.set(h, [h.querySelector('h2'), h.querySelector('p')]));

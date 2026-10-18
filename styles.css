@@ -657,3 +657,36 @@ html.lenis, html.lenis body { height: auto; }
   .to-top { translate: none; scale: none; transition: opacity .01s, visibility 0s; }
 }
 
+
+/* ---------- Loader ---------- */
+/* Shown only when JS is running (index.html adds .is-loading); typed welcome line + rolling corner counter. */
+.loader { display: none; }
+html.is-loading, html.is-loading body { overflow: hidden; }
+.is-loading .loader, .loader.is-done {
+  display: block; position: fixed; inset: 0; z-index: 9999;
+  background: #000; color: #fff;
+}
+.loader.is-done { opacity: 0; pointer-events: none; transition: opacity .8s cubic-bezier(.4, 0, .2, 1); }
+.loader-text {
+  position: absolute; left: 50%; top: 43.7%; translate: -50% -50%;
+  font-family: Avenir, "Avenir Next", "Nunito", system-ui, sans-serif;
+  font-size: clamp(14px, 1.667vw, 24px); letter-spacing: .02em;
+  white-space: nowrap; opacity: .4;
+}
+.loader-caret {
+  display: inline-block; width: 1px; height: 1em; margin-left: 3px; vertical-align: -.12em;
+  background: currentColor; animation: loader-caret 1s steps(1) infinite;
+}
+@keyframes loader-caret { 50% { opacity: 0; } }
+.loader-count {
+  position: absolute; right: 5.7vw; bottom: 5.6vw; display: flex;
+  font-family: var(--round); font-size: clamp(96px, 14.52vw, 209px);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.loader-digit { display: block; height: 1em; overflow: hidden; }
+.loader-strip { display: flex; flex-direction: column; will-change: transform; }
+.loader-strip > span { display: block; height: 1em; text-align: center; }
+@media (prefers-reduced-motion: reduce) {
+  .loader-caret { animation: none; }
+  .loader.is-done { transition-duration: .3s; }
+}
