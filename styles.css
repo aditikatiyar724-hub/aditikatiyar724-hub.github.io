@@ -99,14 +99,17 @@ html.is-loading .hero-bg { animation-play-state: paused; }
 .stamp:nth-of-type(3) { --straighten: -8.29deg; }
 .stamp:hover > img, .stamp:focus-visible > img { --sway: 0; }
 
-/* On load the stickers rise in from below, left to right. Uses `translate` so it never fights the hover `transform`. */
+/* Once the loader is gone the stickers rise in from below, left to right, sharpening out of a blur.
+   Uses `translate` so it never fights the hover `transform`; held at the first frame while the loader is up. */
 .stamp { animation: stamp-rise 1.4s cubic-bezier(.22, 1, .36, 1) backwards; }
-.stamp[aria-label="Resume"]      { animation-delay: .5s; }
-.stamp[aria-label="Work"]        { animation-delay: .68s; }
-.stamp[aria-label="Fun with A.I"] { animation-delay: .86s; }
+.stamp[aria-label^="Resume"]      { animation-delay: .9s; }
+.stamp[aria-label="Work"]         { animation-delay: 1.08s; }
+.stamp[aria-label="Fun with A.I"] { animation-delay: 1.26s; }
+html.is-loading .stamp { animation-play-state: paused; }
 @keyframes stamp-rise {
-  from { translate: 0 180px; opacity: 0; }
-  to   { translate: 0 0; opacity: 1; }
+  from { translate: 0 220px; opacity: 0; filter: blur(14px); }
+  60%  { filter: blur(0); }
+  to   { translate: 0 0; opacity: 1; filter: blur(0); }
 }
 
 /* Darkens and blurs everything behind the hovered sticker. */
