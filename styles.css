@@ -42,11 +42,19 @@ html.lenis, html.lenis body { height: auto; }
 .hero { position: absolute; left: 0; top: 0; width: 1440px; height: 835px; overflow: hidden; background: #000; }
 /* Black blur that hides the seam between the hero image and the next section. */
 .fade-bottom { left: -2px; right: -2px; bottom: -2px; height: 180px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.65) 55%, #000); }
-/* On load the backdrop fades up from black, easing out of a soft blur and slight zoom. */
-.hero-bg { animation: hero-bg-in 2.2s cubic-bezier(.22, 1, .36, 1) backwards; }
+/* On load the backdrop fades up from black out of a soft blur, then slowly settles from a zoomed-in frame.
+   It holds zoomed in behind the loader and only starts moving once the loader is done. */
+.hero-bg {
+  animation: hero-bg-in 1.4s cubic-bezier(.22, 1, .36, 1) backwards, hero-bg-zoom 4.5s cubic-bezier(.33, 0, .2, 1) backwards;
+}
+html.is-loading .hero-bg { animation-play-state: paused; }
 @keyframes hero-bg-in {
-  from { opacity: 0; scale: 1.08; filter: blur(12px); }
-  to   { opacity: 1; scale: 1; filter: blur(0); }
+  from { opacity: 0; filter: blur(12px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+@keyframes hero-bg-zoom {
+  from { scale: 1.18; }
+  to   { scale: 1; }
 }
 .glow-img { position: absolute; display: block; width: 100%; height: 100%; }
 
