@@ -42,19 +42,11 @@ html.lenis, html.lenis body { height: auto; }
 .hero { position: absolute; left: 0; top: 0; width: 1440px; height: 835px; overflow: hidden; background: #000; }
 /* Black blur that hides the seam between the hero image and the next section. */
 .fade-bottom { left: -2px; right: -2px; bottom: -2px; height: 180px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.65) 55%, #000); }
-/* On load the backdrop fades up from black out of a soft blur, then slowly settles from a zoomed-in frame.
-   It holds zoomed in behind the loader and only starts moving once the loader is done. */
-.hero-bg {
-  animation: hero-bg-in 1.4s cubic-bezier(.22, 1, .36, 1) backwards, hero-bg-zoom 4.5s cubic-bezier(.33, 0, .2, 1) backwards;
-}
-html.is-loading .hero-bg { animation-play-state: paused; }
+/* On load the backdrop fades up from black, easing out of a soft blur and slight zoom. */
+.hero-bg { animation: hero-bg-in 2.2s cubic-bezier(.22, 1, .36, 1) backwards; }
 @keyframes hero-bg-in {
-  from { opacity: 0; filter: blur(12px); }
-  to   { opacity: 1; filter: blur(0); }
-}
-@keyframes hero-bg-zoom {
-  from { scale: 1.18; }
-  to   { scale: 1; }
+  from { opacity: 0; scale: 1.08; filter: blur(12px); }
+  to   { opacity: 1; scale: 1; filter: blur(0); }
 }
 .glow-img { position: absolute; display: block; width: 100%; height: 100%; }
 
@@ -68,7 +60,6 @@ html.is-loading .hero-bg { animation-play-state: paused; }
 /* Hero stickers: the "Hi, I am" pill and the CashKaro badge pop onto the page like stickers being pressed on. */
 .js .hi-pill { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) .05s both; }
 .js .role-badge { animation: sticker-in .9s cubic-bezier(.34, 1.56, .64, 1) 1.25s both; }
-html.is-loading .hi-pill, html.is-loading .role-badge { animation-play-state: paused; }
 @keyframes sticker-in {
   0%   { opacity: 0; scale: .55; rotate: -8deg; filter: blur(4px); }
   60%  { opacity: 1; filter: blur(0); }
@@ -100,17 +91,14 @@ html.is-loading .hi-pill, html.is-loading .role-badge { animation-play-state: pa
 .stamp:nth-of-type(3) { --straighten: -8.29deg; }
 .stamp:hover > img, .stamp:focus-visible > img { --sway: 0; }
 
-/* Once the loader is gone the stickers rise in from below, left to right, sharpening out of a blur.
-   Uses `translate` so it never fights the hover `transform`; held at the first frame while the loader is up. */
+/* On load the stickers rise in from below, left to right. Uses `translate` so it never fights the hover `transform`. */
 .stamp { animation: stamp-rise 1.4s cubic-bezier(.22, 1, .36, 1) backwards; }
-.stamp[aria-label^="Resume"]      { animation-delay: .9s; }
-.stamp[aria-label="Work"]         { animation-delay: 1.08s; }
-.stamp[aria-label="Fun with A.I"] { animation-delay: 1.26s; }
-html.is-loading .stamp { animation-play-state: paused; }
+.stamp[aria-label^="Resume"]      { animation-delay: .5s; }
+.stamp[aria-label="Work"]         { animation-delay: .68s; }
+.stamp[aria-label="Fun with A.I"] { animation-delay: .86s; }
 @keyframes stamp-rise {
-  from { translate: 0 220px; opacity: 0; filter: blur(14px); }
-  60%  { filter: blur(0); }
-  to   { translate: 0 0; opacity: 1; filter: blur(0); }
+  from { translate: 0 180px; opacity: 0; }
+  to   { translate: 0 0; opacity: 1; }
 }
 
 /* Darkens and blurs everything behind the hovered sticker. */
@@ -672,6 +660,8 @@ html.is-loading .stamp { animation-play-state: paused; }
 
 /* ---------- Loader ---------- */
 /* Shown only when JS is running (index.html adds .is-loading); typed welcome line + rolling corner counter. */
+/* The page's own intro animations hold on their first frame until the loader is gone, then play unchanged. */
+html.is-loading :is(.hero-bg, .hi-pill, .role-badge, .stamp) { animation-play-state: paused; }
 .loader { display: none; }
 html.is-loading, html.is-loading body { overflow: hidden; }
 .is-loading .loader, .loader.is-done {
