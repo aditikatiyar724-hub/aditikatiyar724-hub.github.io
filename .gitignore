@@ -4,3 +4,5 @@
 /blurr.png
 /Group *.png
 /_originals/
+.vercel
+.env*
