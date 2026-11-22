@@ -78,3 +78,32 @@
     r.addEventListener("dragstart", function (e) { e.preventDefault(); });
   });
 })();
+
+/* Website designs: each hero's film plays on hover (in view on touch) */
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".hcard"));
+  if (!cards.length) return;
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function play(c) {
+    var v = c.querySelector("video");
+    if (!v.src) v.src = v.dataset.src;
+    var p = v.play(); c.classList.add("is-playing");
+    if (p && p.catch) p.catch(function () { c.classList.remove("is-playing"); });
+  }
+  function stop(c) { var v = c.querySelector("video"); v.pause(); c.classList.remove("is-playing"); }
+  if (RM) return;
+  // start fetching a screen early, so the film is ready when the card arrives
+  var pre = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var v = e.target.querySelector("video");
+      if (!v.src) { v.preload = "auto"; v.src = v.dataset.src; }
+      pre.unobserve(e.target);
+    });
+  }, { rootMargin: "600px 0px" });
+  // play while the card is on screen, pause when it leaves
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { e.isIntersecting ? play(e.target) : stop(e.target); });
+  }, { threshold: 0.25 });
+  cards.forEach(function (c) { pre.observe(c); io.observe(c); });
+})();

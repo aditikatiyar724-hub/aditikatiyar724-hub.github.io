@@ -15,17 +15,6 @@
 <!-- ============ CHROME ============ -->
 <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-<header class="topbar" id="topbar">
-  <a class="topbar__brand" href="#top" aria-label="Back to top">
-    <span class="logo-z">zomato</span><span class="logo-p">perks</span>
-  </a>
-  <span class="topbar__chapter" id="topChapter">Case study</span>
-  <div class="topbar__right">
-    <span class="topbar__read"><span id="readLeft">18</span> min left</span>
-    <a class="btn btn--red btn--sm" href="https://zomato-perks.angysingh.workers.dev" target="_blank" rel="noopener">View live <span aria-hidden="true">↗</span></a>
-  </div>
-</header>
-
 <nav class="rail" aria-label="Chapters" id="rail">
   <ol>
     <li><a href="#tldr"><i></i><span>The short version</span></a></li>
@@ -33,11 +22,10 @@
     <li><a href="#problem"><i></i><span>01 · The invisible benefit</span></a></li>
     <li><a href="#people"><i></i><span>02 · Who it's for</span></a></li>
     <li><a href="#bet"><i></i><span>03 · The bet</span></a></li>
-    <li><a href="#ia"><i></i><span>04 · One brand, two products</span></a></li>
-    <li><a href="#system"><i></i><span>05 · The system</span></a></li>
-    <li><a href="#decisions"><i></i><span>06 · Two decisions</span></a></li>
-    <li><a href="#perf"><i></i><span>07 · Performance</span></a></li>
-    <li><a href="#tradeoffs"><i></i><span>08 · Tradeoffs</span></a></li>
+    <li><a href="#system"><i></i><span>04 · The system</span></a></li>
+    <li><a href="#designs"><i></i><span>05 · Website designs</span></a></li>
+    <li><a href="#perf"><i></i><span>06 · Performance</span></a></li>
+    <li><a href="#tradeoffs"><i></i><span>07 · Tradeoffs</span></a></li>
   </ol>
 </nav>
 
@@ -59,6 +47,13 @@
       <span class="hero__big">Salary</span>
       <span class="hero__small hero__small--r">gooo further</span>
     </h1>
+    <div class="hero__cta reveal">
+      <a class="btn btn--red" href="#tldr">Read the case study <span aria-hidden="true">↓</span></a>
+      <a class="btn btn--ghost" href="#designs">Jump to designs</a>
+    </div>
+  </div>
+
+  <div class="hero__about wrap">
     <p class="hero__lede reveal">How I designed <strong>Zomato Perks</strong>, a free Cashback benefit for employees, so that an offer that sounds too good to be true is credible enough to trust, effortless enough to start and pleasant enough to come back to.</p>
 
     <dl class="meta reveal">
@@ -67,11 +62,6 @@
       <div><dt>Surfaces</dt><dd>Marketing site, 12-route member portal, assistant, invite emailer, brand book</dd></div>
       <div><dt>Built with</dt><dd>Figma, Next.js, GSAP, AI-assisted code, 1 collaborator</dd></div>
     </dl>
-
-    <div class="hero__cta reveal">
-      <a class="btn btn--red" href="#tldr">Read the case study <span aria-hidden="true">↓</span></a>
-      <a class="btn btn--ghost" href="#decisions">Jump to decisions</a>
-    </div>
   </div>
 
   <div class="proto reveal" id="prototype">
@@ -141,7 +131,7 @@
         <a class="chip" href="#prototype">Live prototype</a>
         <a class="chip" href="#screens">Phone screens</a>
         <a class="chip" href="#bet">The intro film bet</a>
-        <a class="chip" href="#d-perky">The assistant</a>
+        <a class="chip" href="#designs">Website designs</a>
         <a class="chip" href="#perf">Performance</a>
       </div>
     </div>
@@ -156,9 +146,7 @@
 <section class="sec sec--tint screens" id="screens" data-chapter="The screens">
   <div class="wrap">
     <header class="sec__head reveal">
-      <p class="eyebrow">The UI, on the device most people use</p>
       <h2 class="h2">Every screen, in your poooocket</h2>
-      <p class="lede">Eight phone screens from the live build: the portal members come back to for ninety seconds at a time.</p>
     </header>
 
     <div class="screens__bar reveal">
@@ -171,7 +159,9 @@
     <div class="reel reveal" data-set="portal">
       <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#060e2d,#040c2d,#030c2e,#050e2e,#040d2d,#050e31,#060d30);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-login.webp" alt="Login: Let's get you in" loading="lazy"></div><figcaption><b>Login</b> One question at a time</figcaption></figure>
       <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#f9f7f3,#f7f6ef,#f6f4f2,#d3dbea,#8eb1da,#a8c2e4,#88aed6)"><span class="phone__island"></span><img src="assets/shots/phone/p-home.webp" alt="Home: Where do you want to earn Cashback today?" loading="lazy"></div><figcaption><b>Home</b> One question, six doors</figcaption></figure>
-      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#f9f8f9,#fafafa,#fafafa,#f1eff0,#fafafa,#fafafa,#f9f8f8)"><span class="phone__island"></span><img src="assets/shots/phone/p-cards-finder.webp" alt="Card finder: find the best card for your spends" loading="lazy"></div><figcaption><b>Card finder</b> Priced on your own spends</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#323382,#43458f,#494b95,#4f4f96,#584f94,#5e4f91,#61497a);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-cards-hero.webp" alt="Credit cards: find your best credit card and get flat ₹2,000 Cashback" loading="lazy"></div><figcaption><b>Credit cards</b> Four ways in, one search</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#3f070e,#662529,#480b12,#913e41,#4e0f17,#531419,#410a0d);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-luxury-hero.webp" alt="Luxury: upto 40% Cashback on 60+ luxury brands" loading="lazy"></div><figcaption><b>Luxury</b> The one night page</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#fefffa)"><span class="phone__island"></span><img src="assets/shots/phone/p-loans-hero.webp" alt="Loans: find the best loan in minutes from 50+ banks" loading="lazy"></div><figcaption><b>Loans</b> 50+ banks, one form</figcaption></figure>
       <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#325892,#335a92,#345b93,#2f4c83,#3f629f,#32508b,#34508b);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-travel.webp" alt="Flights and hotels with flat Cashback" loading="lazy"></div><figcaption><b>Travel</b> Flat rupees, shown as rupees</figcaption></figure>
       <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff)"><span class="phone__island"></span><img src="assets/shots/phone/p-insurance.webp" alt="Super Top-Up insurance" loading="lazy"></div><figcaption><b>Super Top-Up</b> Insurance, in plain words</figcaption></figure>
       <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#6daab4,#6ba9b3,#76acb2,#75abb0,#8bb6b9,#cbe2d6,#fefde7)"><span class="phone__island"></span><img src="assets/shots/phone/p-wallet.webp" alt="Wallet with all-time earnings" loading="lazy"></div><figcaption><b>Wallet</b> "Where's my money?"</figcaption></figure>
@@ -272,48 +262,11 @@
   </div>
 </section>
 
-<!-- ============ 05 IA ============ -->
-<section class="sec" id="ia" data-chapter="04 · One brand, two products">
+<!-- ============ 06 SYSTEM ============ -->
+<section class="sec sec--tint" id="system" data-chapter="04 · The system">
   <div class="wrap">
     <header class="sec__head reveal">
       <span class="num">04</span>
-      <p class="eyebrow">Structure</p>
-      <h2 class="h2">One brand, two products</h2>
-      <p class="lede">The marketing site persuades once. The portal is used for ninety seconds at a time and should then get out of the way. They needed different shapes, joined by a designed seam.</p>
-    </header>
-
-
-    <div class="gallery reveal" aria-label="Portal screens">
-      <figure data-zoom><img src="assets/shots/d-home-0.webp" alt="Portal home: Where do you want to earn Cashback today?" loading="lazy"><figcaption><b>Home.</b> One question, one search, six doors.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-wallet-0.webp" alt="My Wallet: all-time earnings, Confirmed, Pending, Paid" loading="lazy"><figcaption><b>Wallet.</b> "Where's my money?" answered in three states.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-shopping-0.webp" alt="Shopping category page" loading="lazy"><figcaption><b>Shopping.</b> Collections, top brands, live rates.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-cards.webp" alt="Credit cards: find your best card" loading="lazy"><figcaption><b>Cards.</b> Four ways in, not one long table.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-profile-0.webp" alt="Profile with savings ledger" loading="lazy"><figcaption><b>Profile.</b> Identity and a savings ledger, separate from the wallet.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-help.webp" alt="Help centre: How can we help?" loading="lazy"><figcaption><b>Help.</b> Six topics, a searchable FAQ and the assistant.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-travel.webp" alt="Flights and hotels" loading="lazy"><figcaption><b>Travel.</b> Flat rupee Cashback, shown as rupees.</figcaption></figure>
-      <figure data-zoom><img src="assets/shots/d-luxury.webp" alt="Luxury page in a dark gold theme" loading="lazy"><figcaption><b>Luxury.</b> The one dark page, made with the same parts.</figcaption></figure>
-    </div>
-    <p class="gallery__hint">Scroll sideways · click any screen to enlarge</p>
-
-    <div class="phones reveal">
-      <figure data-zoom><img src="assets/shots/m-home.webp" alt="Mobile home" loading="lazy"></figure>
-      <figure data-zoom><img src="assets/shots/m-wallet.webp" alt="Mobile wallet" loading="lazy"></figure>
-      <figure data-zoom><img src="assets/shots/m-profile.webp" alt="Mobile profile" loading="lazy"></figure>
-      <div class="phones__txt">
-        <p class="eyebrow">Mobile</p>
-        <h3 class="h3">A separate design, not a breakpoint</h3>
-        <p>The phone versions aren't squeezed desktop layouts. They're their own designs, switched by CSS so nothing shifts on load. The cost is real: two files per section. I chose it because the experiences were genuinely different.</p>
-        <p>Rules that came out of it: gutter equals card gap equals 24px, sheets get a grab handle instead of an ✕, and the tab bar hides on scroll down so the search button and filters can take its corner.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 06 SYSTEM ============ -->
-<section class="sec sec--tint" id="system" data-chapter="05 · The system">
-  <div class="wrap">
-    <header class="sec__head reveal">
-      <span class="num">05</span>
       <p class="eyebrow">Design system</p>
       <h2 class="h2">Small rules, kept everywhere</h2>
       <p class="lede">A product that's mostly a number and a feeling needs few parts, used strictly. The whole system fits on one page and ships as a brand book with a "why we did it" on every chapter.</p>
@@ -355,95 +308,93 @@
         </ul>
         <p class="pullsm">“A Cashback number treated casually reads like a rounding error.”</p>
       </article>
-
-      <article class="sys__card sys__card--wide reveal">
-        <h4>Five movements, two curves</h4>
-        <p class="tiny">Quick to arrive, soft to land. Press play to compare.</p>
-        <div class="ease">
-          <div class="ease__row"><code>ease-out-expo · cubic-bezier(.16,1,.3,1)</code><div class="ease__track"><i class="ease__dot" data-ease="expo"></i></div><span>Entrances, fades</span></div>
-          <div class="ease__row"><code>ease-soft · cubic-bezier(.22,1,.36,1)</code><div class="ease__track"><i class="ease__dot" data-ease="soft"></i></div><span>Hover, float</span></div>
-          <div class="ease__row ease__row--off"><code>linear · the one we don't use</code><div class="ease__track"><i class="ease__dot" data-ease="lin"></i></div><span>Feels mechanical</span></div>
-        </div>
-        <button class="btn btn--ghost btn--sm" id="easePlay">▶ Play</button>
-        <p class="tiny"><b>Reduced motion is a system rule, not an afterthought:</b> every duration becomes zero, so nothing can stay hidden behind an animation that never runs.</p>
-      </article>
     </div>
   </div>
 </section>
 
-<!-- ============ 07 DECISIONS ============ -->
-<section class="sec" id="decisions" data-chapter="06 · Two decisions">
+<!-- ============ 06 WEBSITE DESIGNS ============ -->
+<section class="sec" id="designs" data-chapter="05 · Website designs">
   <div class="wrap">
     <header class="sec__head reveal">
-      <span class="num">06</span>
-      <p class="eyebrow">Depth</p>
-      <h2 class="h2">Two decisions worth defending</h2>
-      <p class="lede">Each one went through several versions. I'm showing what didn't work, because that's where the judgement is.</p>
+      <span class="num">05</span>
+      <p class="eyebrow">The portal, page by page</p>
+      <h2 class="h2">Website designs</h2>
+      <p class="lede">The homepage and the hero of all six categories, recorded from the live site. Each one plays its background film, the same loop it runs on the real page.</p>
     </header>
 
-    <div class="dtabs reveal" role="tablist" aria-label="Decisions">
-      <button role="tab" aria-selected="true" aria-controls="d-perky" id="t-perky">A · The assistant</button>
-      <button role="tab" aria-selected="false" aria-controls="d-s2" id="t-s2">B · The category reel</button>
-    </div>
-
-    <!-- B -->
-    <article class="dpanel" id="d-perky" role="tabpanel" aria-labelledby="t-perky">
-      <div class="dpanel__head">
-        <h3 class="h3">Ask Perky, an assistant that can't make things up</h3>
-        <p>In a product whose whole job is trust, an assistant that invents a Cashback rate is worse than no assistant. So Perky answers from the same data the screens show.</p>
-      </div>
-      <div class="dpanel__body">
-        <div class="ba">
-          <figure data-zoom><span class="ba__tag ba__tag--bad">Before audit</span><img src="assets/perky/before-negation.webp" alt="Before: Perky ignores 'no morning flights' and shows morning flights" loading="lazy"><figcaption>"no morning flights" → morning flights</figcaption></figure>
-          <figure data-zoom><span class="ba__tag">After rebuild</span><img src="assets/perky/after-negation.webp" alt="After: Perky shows afternoon and evening flights" loading="lazy"><figcaption>Understood, filtered, said so</figcaption></figure>
-        </div>
-        <div class="pst">
-          <div><span>Audit</span><p>I ran 73 hard messages through it the evening it was built. A third came back <b>confidently wrong</b>.</p></div>
-          <div><span>The rule it wrote</span><p>Never act on half a sentence in silence. If unsure, ask. If unknown, say "I don't have that yet" and hand off to a person.</p></div>
-          <div><span>Result</span>
-            <table class="mini">
-              <tr><td>Probes handled (of 73)</td><td>24 → <b>70</b></td></tr>
-              <tr><td>Confidently wrong</td><td>25 → <b>0</b></td></tr>
-              <tr><td>Language checks</td><td>0 → <b>746</b></td></tr>
-              <tr><td>Engine time per turn</td><td><b>0.4 ms</b></td></tr>
-            </table>
+    <div class="heroes">
+      <figure class="hcard hcard--big reveal" data-hero="home">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Homepage hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/home-page.webp" alt="Homepage hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/home.webp" data-src="assets/heroes/home.mp4"></video></div>
           </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
         </div>
-        <figure class="browser" data-zoom><div class="browser__bar"><i></i><i></i><i></i><span>cards · Ask Perky docked</span></div><img src="assets/perky/docked-cards.webp" alt="Ask Perky docked on the left of the Cards page, the page making room" loading="lazy"><figcaption>Docked on every page from 1024px. The page moves over to make room instead of being covered.</figcaption></figure>
-      </div>
-    </article>
-
-    <!-- C -->
-    <article class="dpanel" id="d-s2" role="tabpanel" aria-labelledby="t-s2" hidden>
-      <div class="dpanel__head">
-        <h3 class="h3">From an 83MB film to a clean plate and live text</h3>
-        <p>The category reel ("You name it, we haaave it") started as one video with every headline baked into the pixels. Soft on retina, impossible to edit, invisible to screen readers.</p>
-      </div>
-      <ol class="steps">
-        <li><b>Baked film</b><span>83MB, text in pixels</span></li>
-        <li><b>Clean plate + DOM</b><span>Video without text; headlines as real type, locked to the same frame</span></li>
-        <li><b>Hardware decoding</b><span>Smooth scrubbing in either direction, about 9ms a frame</span></li>
-        <li><b>Mobile image sequence</b><span>Phones froze on the video; 300 frames, 5.6MB</span></li>
-        <li class="grave__win"><b>Panned sequence</b><span>The crop follows each product to centre screen</span></li>
-      </ol>
-      <div class="pair">
-        <figure data-zoom><img src="assets/shots/lp-s2-open.webp" alt="Reel opener: You name it, we have it" loading="lazy"><figcaption>Headlines type on as you scroll and un-type when you scroll back.</figcaption></figure>
-        <figure data-zoom><img src="assets/shots/lp-s2-travel.webp" alt="Reel beat: love to travel, with the flights card" loading="lazy"><figcaption>Text writes, settles, then the card swings in.</figcaption></figure>
-      </div>
-      <div class="pst pst--row">
-        <div><span>Gained</span><p>Sharp type at any density, copy changes in one line, and real effects like focus blur and sheen.</p></div>
-        <div><span>Paid</span><p>Two systems that must stay frame-locked, and a separate render path for phones.</p></div>
-        <div><span>Also</span><p>A 48-tick progress meter you can click to jump. An honest fix for "how long is this?" on a scroll-locked section.</p></div>
-      </div>
-    </article>
+        <figcaption><b>Homepage</b><span>"Where do you want to earn Cashback today?" One question, one search, six doors.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="shopping">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Shopping hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/shopping-page.webp" alt="Shopping hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/shopping.webp" data-src="assets/heroes/shopping.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Shopping</b><span>1500+ brands across 18+ categories, search first.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="travel">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Flights &amp; Hotels hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/travel-page.webp" alt="Flights &amp; Hotels hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/travel.webp" data-src="assets/heroes/travel.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Flights &amp; Hotels</b><span>Flat rupee Cashback, shown as rupees.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="cards">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Credit Cards hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/cards-page.webp" alt="Credit Cards hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/cards.webp" data-src="assets/heroes/cards.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Credit Cards</b><span>Four ways in to find a card, not one long table.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="loans">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Loans hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/loans-page.webp" alt="Loans hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/loans.webp" data-src="assets/heroes/loans.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Loans</b><span>The best loan in minutes, from 50+ banks.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="insurance">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Super Top-Up hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/insurance-page.webp" alt="Super Top-Up hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/insurance.webp" data-src="assets/heroes/insurance.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Super Top-Up</b><span>Health cover beyond the employer policy, in plain words.</span></figcaption>
+      </figure>
+      <figure class="hcard reveal" data-hero="luxury">
+        <div class="hcard__media">
+          <div class="hcard__scroll" tabindex="0" aria-label="Luxury hero, live site, full page, scrollable">
+            <div class="hcard__page"><img src="assets/heroes/luxury-page.webp" alt="Luxury hero, live site, full page" loading="lazy"><video muted loop playsinline preload="none" poster="assets/heroes/luxury.webp" data-src="assets/heroes/luxury.mp4"></video></div>
+          </div>
+          <span class="hcard__hint"><i></i>Scroll to explore</span>
+        </div>
+        <figcaption><b>Luxury</b><span>The one night page: gold on black, built from the same parts.</span></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
 <!-- ============ 08 PERFORMANCE ============ -->
-<section class="sec sec--tint" id="perf" data-chapter="07 · Performance">
+<section class="sec sec--tint" id="perf" data-chapter="06 · Performance">
   <div class="wrap">
     <header class="sec__head reveal">
-      <span class="num">07</span>
+      <span class="num">06</span>
       <p class="eyebrow">Performance is a design material</p>
       <h2 class="h2">One measurement changed the plan</h2>
       <p class="lede">The scroll felt heavy. I ran the same scroll twice: once normally, once with reduced motion on.</p>
@@ -472,10 +423,10 @@
 </section>
 
 <!-- ============ 09 TRADEOFFS ============ -->
-<section class="sec" id="tradeoffs" data-chapter="08 · Tradeoffs">
+<section class="sec" id="tradeoffs" data-chapter="07 · Tradeoffs">
   <div class="wrap">
     <header class="sec__head reveal">
-      <span class="num">08</span>
+      <span class="num">07</span>
       <p class="eyebrow">Stated plainly</p>
       <h2 class="h2">What I gained, what I paid</h2>
     </header>

@@ -52,14 +52,14 @@
     var y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
     var p = h > 0 ? y / h : 0;
     bar.style.transform = "scaleX(" + p + ")";
-    left.textContent = Math.max(1, Math.ceil(TOTAL_MIN * (1 - p)));
+    if (left) left.textContent = Math.max(1, Math.ceil(TOTAL_MIN * (1 - p)));
     // hide bar on fast scroll down, show on up
-    if (y > 400 && y > lastY + 6) topbar.classList.add("is-hidden");
-    else if (y < lastY - 6 || y < 400) topbar.classList.remove("is-hidden");
+    if (topbar) { if (y > 400 && y > lastY + 6) topbar.classList.add("is-hidden");
+    else if (y < lastY - 6 || y < 400) topbar.classList.remove("is-hidden"); }
     lastY = y;
     var cur = null;
     secs.forEach(function (s) { if (s.getBoundingClientRect().top < innerHeight * 0.4) cur = s; });
-    chap.textContent = cur ? cur.dataset.chapter : "Case study";
+    if (chap) chap.textContent = cur ? cur.dataset.chapter : "Case study";
     rail.classList.toggle("is-on", !!cur && y < h - 200);
     railLinks.forEach(function (a) { a.classList.toggle("is-active", !!cur && a.getAttribute("href") === "#" + cur.id); });
     ticking = false;
@@ -189,31 +189,6 @@
     setO(0);
     O.forEach(function (o) { var im = new Image(); im.src = "assets/shots/" + o.img + ".webp"; });
   }
-
-  /* ---------- decision tabs ---------- */
-  var tabs = $$(".dtabs button");
-  function openTab(id, scroll) {
-    tabs.forEach(function (t) {
-      var on = t.getAttribute("aria-controls") === id;
-      t.setAttribute("aria-selected", on);
-      $("#" + t.getAttribute("aria-controls")).hidden = !on;
-    });
-    if (scroll) $(".dtabs").scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" });
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener("click", function () { openTab(t.getAttribute("aria-controls")); });
-    t.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-        var n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
-        n.focus(); openTab(n.getAttribute("aria-controls"));
-      }
-    });
-  });
-  // deep links like #d-perky open the right tab
-  function fromHash() { var h = location.hash.slice(1); if (/^d-/.test(h) && $("#" + h)) openTab(h, true); }
-  window.addEventListener("hashchange", fromHash);
-  $$('a[href^="#d-"]').forEach(function (a) { a.addEventListener("click", function (e) { e.preventDefault(); history.replaceState(null, "", a.getAttribute("href")); fromHash(); }); });
-  fromHash();
 
   /* ---------- easing demo ---------- */
   var play = $("#easePlay");
