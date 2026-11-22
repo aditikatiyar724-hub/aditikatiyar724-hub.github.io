@@ -478,6 +478,14 @@ html.lenis, html.lenis body { height: auto; }
 .work-card.touched .photo-card:is(.work1-art, .work2-art, .work3-art) { animation: art-tuck-in .75s both; }
 .work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art, .work3-art) { animation: art-pull-out .8s both; }
 .work-card .lift > .seal { z-index: 6; }
+/* Folders with artwork open only from the strip of artwork peeking out above the folder, not from the paper.
+   Once open, the pulled-out artwork itself keeps the hover so it doesn't flicker shut. */
+.work-card:not(.soon) .lift > *, .work-card:not(.soon) .work-title { pointer-events: none; }
+.work-card .lift > .art-hit {
+  position: absolute; left: 70px; top: 285.5px; width: 500px; height: 96px; z-index: 1; pointer-events: auto;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 150px 100%, 140px 68px, 0 68px);
+}
+.work-card:hover .lift > .box:has(> .photo-card:is(.work1-art, .work2-art, .work3-art)) { pointer-events: auto; }
 /* Hover backdrop (Figma 1402:96641): 85% black with a 16.5px backdrop blur and two soft glows (per card, from Figma) covers the page,
    the folder and the title; only the artwork (z 5) and wax seal (z 6) sit above it. The lift is not raised here so it
    stays out of the stacking order and those z-indexes compete with the backdrop directly. */
