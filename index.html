@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=24">
 </head>
 <body>
 <!-- ================= Loader ================= -->
@@ -296,10 +296,10 @@
     <h3 class="abs work-title center-x" style="left:317.02px;top:686.27px">Activation user research</h3>
   </a>
 
-  <a class="abs work-card soon" href="#" tabindex="-1" aria-disabled="true" style="left:113.82px;top:3000.84px;width:628.501px;height:718.27px">
+  <a class="abs work-card" href="perks/" style="left:113.82px;top:3000.84px;width:628.501px;height:718.27px">
     <div class="box on-hover" style="left:0;top:0;width:628.501px;height:638.126px">
       <div style="width:628.501px;height:638.126px;transform:scaleY(-1)">
-        <div class="abs" style="inset:-15.67% -15.91% -0.68% -15.91%"><img class="glow-img" src="assets/work-glow.svg" alt=""></div>
+        <div class="abs" style="inset:-15.67% -15.91% -0.68% -15.91%"><img class="glow-img" src="assets/work-glow-red.svg" alt=""></div>
       </div>
     </div>
     <div class="lift">
@@ -309,7 +309,7 @@
       </div>
       <!-- Photo, folder, paper clip and wax seal -->
       <div class="box" style="left:75.42px;top:252.32px;width:491.9px;height:322.28px">
-        <div class="photo-card tilt"><img src="assets/work-photo.webp" alt=""></div>
+        <div class="photo-card tilt work3-art"><img src="assets/work3-perks.webp?v=1" alt="Perks: tap and hold to ignite your invite"></div>
       </div>
       <div class="box" style="left:36.18px;top:334.97px;width:562.94px;height:206.207px">
         <div class="folder-top"><div class="clip"><img src="assets/work-folder.webp" alt=""></div></div>
@@ -318,7 +318,18 @@
         <div class="folder-bottom"><div class="clip"><img src="assets/work-folder.webp" alt=""></div></div>
       </div>
       <div class="abs" style="left:437.08px;top:324.17px;width:163.301px;height:163.301px"><img class="fill" src="assets/work-clip.webp" alt=""></div>
-      <p class="abs soon-label">Work coming soon</p>
+      <div class="box on-hover seal" style="left:114.06px;top:481.9px;width:134.069px;height:131.843px">
+        <div class="seal-img"><div class="clip"><img src="assets/seal.webp" alt=""></div></div>
+      </div>
+      <div class="box on-hover seal" style="left:152.75px;top:521.64px;width:60.21px;height:49.543px">
+        <div class="seal-text"><span>click to</span><span>open</span></div>
+      </div>
+    </div>
+    <!-- Hover backdrop: dims and blurs the page behind the pulled-out artwork, with its own glows (Figma 1402:96641 / 1403:98229) -->
+    <div class="abs work-dim" aria-hidden="true">
+      <img class="work-dim-glow screen" src="assets/work-dim-red.webp" alt="" decoding="async" style="left:770.84px;top:960.9px;width:2211.67px;height:2211.67px">
+      <img class="work-dim-glow" src="assets/work-dim-black.webp" alt="" decoding="async" style="left:1323.43px;top:941.02px;width:2211.67px;height:2211.67px">
+      <div class="work-fireflies" style="left:1487.45px;top:1450px;width:1440px;height:1020px"></div>
     </div>
     <h3 class="abs work-title center-x" style="left:317.02px;top:686.27px">Perks for Employees</h3>
   </a>
@@ -348,6 +359,12 @@
       <p class="abs soon-label">Work coming soon</p>
     </div>
     <h3 class="abs work-title center-x" style="left:317.02px;top:686.27px">Sale design for Activation</h3>
+  </a>
+
+  <!-- Show more work: opens the full archive of folders -->
+  <a class="abs more-work" href="work.html">
+    <span>Show more work</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
 
   <!-- ================= Experience history ================= -->
@@ -533,6 +550,6 @@
   <img class="to-top-arrow" src="assets/icon-arrow-up.svg" alt="">
 </button>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>

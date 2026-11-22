@@ -464,19 +464,19 @@ html.lenis, html.lenis body { height: auto; }
 .photo-card { width: 472.823px; height: 290.004px; background: #fff; border-radius: 24px; overflow: hidden; }
 .photo-card > img { position: absolute; left: calc(50% + 0.35px); top: calc(50% - 82.87px); width: 486.061px; height: 648.082px; transform: translate(-50%, -50%); object-fit: cover; }
 /* Gamification and user research cards: the 500x300 artwork has its own frame, so it takes the white sheet's place and moves as the sheet did. */
-.work-card:has(.work1-art, .work2-art) .sheet-tilt { display: none; }
+.work-card:has(.work1-art, .work2-art, .work3-art) .sheet-tilt { display: none; }
 /* The artwork carries its own transparent 30px corners, so the white card background must not show around them. */
-.photo-card:is(.work1-art, .work2-art) { width: 500px; height: 300px; background: none; border-radius: 30px; }
-.photo-card:is(.work1-art, .work2-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: fill; }
-.work-card .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.42px, 22.04px); }
-.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { transform: translate(-1.42px, -9.56px) rotate(-4deg); }
+.photo-card:is(.work1-art, .work2-art, .work3-art) { width: 500px; height: 300px; background: none; border-radius: 30px; }
+.photo-card:is(.work1-art, .work2-art, .work3-art) > img { left: 0; top: 0; width: 100%; height: 100%; transform: none; object-fit: fill; }
+.work-card .photo-card:is(.work1-art, .work2-art, .work3-art) { transform: translate(-1.42px, 22.04px); }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art, .work3-art) { transform: translate(-1.42px, -9.56px) rotate(-4deg); }
 /* On hover the artwork slides up out of the folder, clears its lip, then drops back down in front of it.
    Leaving plays it in reverse (.touched is set by script.js so the reverse never runs on page load). */
-.photo-card:is(.work1-art, .work2-art) { --rest: translate(-1.42px, 22.04px); --peak: translate(-1.42px, -242px) rotate(-2deg); --out: translate(-23.69px, 88.55px) rotate(-2.58deg); }
+.photo-card:is(.work1-art, .work2-art, .work3-art) { --rest: translate(-1.42px, 22.04px); --peak: translate(-1.42px, -242px) rotate(-2deg); --out: translate(-23.69px, 88.55px) rotate(-2.58deg); }
 /* The gamification artwork is taller (500x340); its top edge rests where the 300px one did. */
 .photo-card.work1-art { height: 340px; --rest: translate(-1.42px, 42.04px); --peak: translate(-1.42px, -262px) rotate(-2deg); }
-.work-card.touched .photo-card:is(.work1-art, .work2-art) { animation: art-tuck-in .75s both; }
-.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art) { animation: art-pull-out .8s both; }
+.work-card.touched .photo-card:is(.work1-art, .work2-art, .work3-art) { animation: art-tuck-in .75s both; }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art, .work3-art) { animation: art-pull-out .8s both; }
 .work-card .lift > .seal { z-index: 6; }
 /* Hover backdrop (Figma 1402:96641): 85% black with a 16.5px backdrop blur and two soft glows (per card, from Figma) covers the page,
    the folder and the title; only the artwork (z 5) and wax seal (z 6) sit above it. The lift is not raised here so it
@@ -493,10 +493,11 @@ html.lenis, html.lenis body { height: auto; }
 /* Hover backdrop fireflies (spawned in script.js, viewport-sized around the card), tinted to each card's glow. */
 .work-fireflies { position: absolute; --ff-core: #ffc6e4; --ff-glow: rgba(255, 110, 190, .4); --ff-halo: rgba(240, 70, 160, .14); }
 .work-dim:has(img[src*="green"]) .work-fireflies { --ff-core: #dcf5b8; --ff-glow: rgba(150, 215, 90, .4); --ff-halo: rgba(110, 180, 60, .14); }
+.work-dim:has(img[src*="red"]) .work-fireflies { --ff-core: #ffe2a8; --ff-glow: rgba(255, 170, 80, .4); --ff-halo: rgba(226, 55, 68, .16); }
 .work-card:is(:hover, :focus-visible) .work-fireflies .firefly { animation-play-state: running; }
 /* The folder and paper clip drop into the spotlight blur too, so only the pulled-out artwork stays sharp. */
 .work-card .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { transition: filter .4s ease; }
-.work-card:is(:hover, :focus-visible):has(.work1-art, .work2-art) .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { filter: blur(6px) brightness(.35); }
+.work-card:is(:hover, :focus-visible):has(.work1-art, .work2-art, .work3-art) .lift > :is(.box:has(> .folder-top, > .folder-bottom), .abs:has(> img[src*="work-clip"])) { filter: blur(6px) brightness(.35); }
 @keyframes art-pull-out {
   0% { transform: var(--rest); z-index: 0; animation-timing-function: cubic-bezier(.3,0,.2,1); }
   48% { transform: var(--peak); z-index: 0; animation-timing-function: cubic-bezier(.4,0,.2,1); }
@@ -511,34 +512,34 @@ html.lenis, html.lenis body { height: auto; }
 }
 /* Parallax: while hovered the artwork tilts in 3D toward the cursor and drifts against it (--tx/--ty/--ta/--px/--py set in script.js). */
 /* perspective makes the box its own stacking context, so the in-front swap happens on the box: timed to the top of the pull-out and tuck-in arcs. */
-.box:has(> .photo-card:is(.work1-art, .work2-art)) { perspective: 900px; z-index: 0; transition: z-index 0s .33s; }
-.work-card:is(:hover, :focus-visible) .box:has(> .photo-card:is(.work1-art, .work2-art)) { z-index: 5; transition-delay: .39s; }
-.photo-card:is(.work1-art, .work2-art) {
+.box:has(> .photo-card:is(.work1-art, .work2-art, .work3-art)) { perspective: 900px; z-index: 0; transition: z-index 0s .33s; }
+.work-card:is(:hover, :focus-visible) .box:has(> .photo-card:is(.work1-art, .work2-art, .work3-art)) { z-index: 5; transition-delay: .39s; }
+.photo-card:is(.work1-art, .work2-art, .work3-art) {
   rotate: var(--tx, 0) var(--ty, 1) 0 var(--ta, 0deg);
   translate: calc(var(--px, 0) * 10px) calc(var(--py, 0) * 8px);
   transition: rotate .25s ease-out, translate .25s ease-out;
 }
 /* Shine: a soft glare tracks the cursor, and a bright band sweeps across once the card settles in front. */
-.photo-card:is(.work1-art, .work2-art)::before,
-.photo-card:is(.work1-art, .work2-art)::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; }
-.photo-card:is(.work1-art, .work2-art)::before {
+.photo-card:is(.work1-art, .work2-art, .work3-art)::before,
+.photo-card:is(.work1-art, .work2-art, .work3-art)::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; }
+.photo-card:is(.work1-art, .work2-art, .work3-art)::before {
   background: radial-gradient(circle at var(--gx, 50%) var(--gy, 30%), rgba(255, 255, 255, .32), rgba(255, 255, 255, 0) 55%);
   mix-blend-mode: soft-light; transition: opacity .35s ease;
 }
-.photo-card:is(.work1-art, .work2-art)::after {
+.photo-card:is(.work1-art, .work2-art, .work3-art)::after {
   background: linear-gradient(110deg, rgba(255, 255, 255, 0) 42%, rgba(255, 255, 255, .45) 49%, rgba(255, 255, 255, .6) 50%, rgba(255, 255, 255, .45) 51%, rgba(255, 255, 255, 0) 58%) no-repeat;
   background-size: 300% 100%; mix-blend-mode: screen;
 }
-.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art)::before { opacity: 1; }
-.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art)::after { animation: art-shine 1.1s .65s ease-in-out both; }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art, .work3-art)::before { opacity: 1; }
+.work-card:is(:hover, :focus-visible) .photo-card:is(.work1-art, .work2-art, .work3-art)::after { animation: art-shine 1.1s .65s ease-in-out both; }
 @keyframes art-shine {
   0% { opacity: 1; background-position: 100% 0; }
   85% { opacity: 1; }
   100% { opacity: 0; background-position: 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .work-card .photo-card:is(.work1-art, .work2-art) { animation: none !important; rotate: none; translate: none; }
-  .work-card .photo-card:is(.work1-art, .work2-art)::after { animation: none !important; }
+  .work-card .photo-card:is(.work1-art, .work2-art, .work3-art) { animation: none !important; rotate: none; translate: none; }
+  .work-card .photo-card:is(.work1-art, .work2-art, .work3-art)::after { animation: none !important; }
 }
 .folder-top { width: 206.207px; height: 562.94px; transform: rotate(-90deg); }
 .folder-top .clip > img { left: -152.63%; top: 0; width: 273%; height: 100%; }
@@ -554,6 +555,27 @@ html.lenis, html.lenis body { height: auto; }
 .seal-text span:first-child { margin-bottom: -4px; }
 
 /* Cards 2-4 share one layout, positioned from the group origin. */
+
+/* ---------- Show more work button ---------- */
+.more-work {
+  left: 50%; top: 3748px; translate: -50% 0; z-index: 3;
+  display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 999px;
+  font: 500 22px/1 var(--round); color: #fff; white-space: nowrap;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+.more-work svg { width: 22px; height: 22px; transition: translate .3s ease; }
+.more-work:is(:hover, :focus-visible) { background: #fff; color: #000; border-color: #fff; }
+.more-work:is(:hover, :focus-visible) svg { translate: 4px 0; }
+.more-work:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.6); outline-offset: 4px; }
+
+/* ---------- All work page (work.html) ---------- */
+.work-page .viewport { height: calc(var(--page-h) * var(--scale)); }
+.work-page .stage { height: var(--page-h); }
+.back-home { left: 112px; top: 48px; z-index: 3; display: inline-flex; align-items: center; gap: 10px; font: 500 20px/1 var(--round); color: rgba(255, 255, 255, 0.6); transition: color .3s ease; }
+.back-home svg { width: 20px; height: 20px; transition: translate .3s ease; }
+.back-home:is(:hover, :focus-visible) { color: #fff; }
+.back-home:is(:hover, :focus-visible) svg { translate: -4px 0; }
 
 /* ---------- Design playground ---------- */
 .playground { left: 38px; top: 10066px; display: flex; gap: 32px; align-items: center; }

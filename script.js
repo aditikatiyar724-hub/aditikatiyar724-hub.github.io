@@ -119,7 +119,7 @@
 
   // Work cards: the artwork tilts toward the cursor (parallax) and its glare follows it.
   document.querySelectorAll('.work-card').forEach((card) => {
-    const art = card.querySelector('.photo-card:is(.work1-art, .work2-art)');
+    const art = card.querySelector('.photo-card:is(.work1-art, .work2-art, .work3-art)');
     if (!art) return;
     card.addEventListener('pointermove', (e) => {
       const r = card.querySelector('.lift').getBoundingClientRect();

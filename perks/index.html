@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zomato Perks, a case study</title>
+<meta name="description" content="Case study: turning an invisible employee benefit into something people believe, start and come back to. Marketing site, member portal, design system and assistant for Zomato Perks, powered by CashKaro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&family=Asap:ital,wght@1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/perks-case.css">
+</head>
+<body>
+
+<!-- ============ CHROME ============ -->
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<header class="topbar" id="topbar">
+  <a class="topbar__brand" href="#top" aria-label="Back to top">
+    <span class="logo-z">zomato</span><span class="logo-p">perks</span>
+  </a>
+  <span class="topbar__chapter" id="topChapter">Case study</span>
+  <div class="topbar__right">
+    <span class="topbar__read"><span id="readLeft">18</span> min left</span>
+    <a class="btn btn--red btn--sm" href="https://zomato-perks.angysingh.workers.dev" target="_blank" rel="noopener">View live <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Chapters" id="rail">
+  <ol>
+    <li><a href="#tldr"><i></i><span>The short version</span></a></li>
+    <li><a href="#screens"><i></i><span>The screens</span></a></li>
+    <li><a href="#problem"><i></i><span>01 · The invisible benefit</span></a></li>
+    <li><a href="#people"><i></i><span>02 · Who it's for</span></a></li>
+    <li><a href="#bet"><i></i><span>03 · The bet</span></a></li>
+    <li><a href="#ia"><i></i><span>04 · One brand, two products</span></a></li>
+    <li><a href="#system"><i></i><span>05 · The system</span></a></li>
+    <li><a href="#decisions"><i></i><span>06 · Two decisions</span></a></li>
+    <li><a href="#perf"><i></i><span>07 · Performance</span></a></li>
+    <li><a href="#tradeoffs"><i></i><span>08 · Tradeoffs</span></a></li>
+  </ol>
+</nav>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__sky" aria-hidden="true"></div>
+  <div class="hero__cards" aria-hidden="true">
+    <img class="fcard fcard--a tilt" src="assets/img/card-fashion.webp" alt="">
+    <img class="fcard fcard--b tilt" src="assets/img/card-education.webp" alt="">
+    <img class="fcard fcard--c tilt" src="assets/img/card-creditcard.webp" alt="">
+    <img class="fcard fcard--d tilt" src="assets/img/card-loan.webp" alt="">
+  </div>
+  <div class="hero__inner wrap">
+    <p class="eyebrow reveal">A product design case study · 2026</p>
+    <h1 class="hero__title reveal">
+      <span class="hero__small">make your</span>
+      <span class="hero__big">Salary</span>
+      <span class="hero__small hero__small--r">gooo further</span>
+    </h1>
+    <p class="hero__lede reveal">How I designed <strong>Zomato Perks</strong>, a free Cashback benefit for employees, so that an offer that sounds too good to be true is credible enough to trust, effortless enough to start and pleasant enough to come back to.</p>
+
+    <dl class="meta reveal">
+      <div><dt>Role</dt><dd>Product designer, 0→1. Design direction, design system, prototyping and QA</dd></div>
+      <div><dt>Timeline</dt><dd>Jul to Nov 2026. v1 in 15 build days</dd></div>
+      <div><dt>Surfaces</dt><dd>Marketing site, 12-route member portal, assistant, invite emailer, brand book</dd></div>
+      <div><dt>Built with</dt><dd>Figma, Next.js, GSAP, AI-assisted code, 1 collaborator</dd></div>
+    </dl>
+
+    <div class="hero__cta reveal">
+      <a class="btn btn--red" href="#tldr">Read the case study <span aria-hidden="true">↓</span></a>
+      <a class="btn btn--ghost" href="#decisions">Jump to decisions</a>
+    </div>
+  </div>
+
+  <div class="proto reveal" id="prototype">
+    <div class="proto__head">
+      <div>
+        <h2 class="proto__title">Play with the live prototype</h2>
+      </div>
+      <div class="proto__ctrls">
+        <div class="seg" role="tablist" aria-label="Device">
+          <button role="tab" aria-selected="true" data-mode="desktop">Desktop</button>
+          <button role="tab" aria-selected="false" data-mode="phone">Phone</button>
+        </div>
+        <a class="btn btn--ghost btn--sm" href="https://zomato-perks.angysingh.workers.dev" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+    </div>
+
+    <div class="proto__stage" data-mode="desktop">
+      <div class="browser proto__desk">
+        <div class="proto__vp" data-vp="desk" data-w="1440" data-h="900">
+          <img class="proto__poster" src="assets/shots/lp-hero.webp" alt="The Zomato Perks landing page">
+          <button class="proto__launch" data-launch="desk"><span class="proto__play">▶</span><b>Launch the live site</b><em>Real intro film, sound on. Scroll inside the frame.</em></button>
+        </div>
+      </div>
+
+      <div class="proto__phonewrap">
+        <div class="phone" style="--sb:linear-gradient(90deg,#f9f1eb,#faf4ee,#faf4ef,#fdf6ef,#fcf6ef,#fdf6f0,#fef6f0)">
+          <span class="phone__island" aria-hidden="true"></span>
+          <div class="proto__vp phone__screen" data-vp="phone" data-w="390" data-h="844">
+            <img class="proto__poster" src="assets/shots/phone/l-hero.webp" alt="The Zomato Perks landing page on a phone">
+            <button class="proto__launch" data-launch="phone"><span class="proto__play">▶</span><b>Launch on phone</b><em>The lighter mobile build</em></button>
+          </div>
+        </div>
+        <div class="proto__phonenote">
+          <p class="eyebrow">The phone build</p>
+          <p>A separate design, not a squeezed desktop: fanned cards instead of draggable ones, a panned image sequence for the reel, and a title that sticks then rides up with the last Process card.</p>
+          <button class="btn btn--ghost btn--sm" data-reload="phone">↻ Restart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TL;DR ============ -->
+<section class="sec" id="tldr" data-chapter="The short version">
+  <div class="wrap">
+    <div class="tldr reveal">
+      <div class="tldr__head">
+        <p class="eyebrow">If you only have 60 seconds</p>
+        <h2 class="h2">The short versiooon</h2>
+      </div>
+      <div class="tldr__grid">
+        <article>
+          <span class="tldr__k">The problem</span>
+          <p>Corporate perks fail quietly. HR announces them once, a few people activate, nobody remembers. Perks also <em>sounds like a scam</em>: free money on things you already buy.</p>
+        </article>
+        <article>
+          <span class="tldr__k">What I did</span>
+          <p>Designed the whole product around the <strong>Skeptic</strong>. A scroll story that earns belief before making a claim, a portal that stays out of the way, and a system that keeps every rupee honest.</p>
+        </article>
+        <article>
+          <span class="tldr__k">What shipped</span>
+          <p>A marketing site, a 12-route portal with 71 static pages, an assistant that cannot invent a rate, a white-label system for three employers and a 13-chapter brand book.</p>
+        </article>
+      </div>
+      <div class="tldr__jump">
+        <span>Skip to</span>
+        <a class="chip" href="#prototype">Live prototype</a>
+        <a class="chip" href="#screens">Phone screens</a>
+        <a class="chip" href="#bet">The intro film bet</a>
+        <a class="chip" href="#d-perky">The assistant</a>
+        <a class="chip" href="#perf">Performance</a>
+      </div>
+    </div>
+
+    <aside class="note reveal">
+      <b>A note on numbers.</b> Perks is a working prototype, not a launched product, so there is no conversion data in this study. Every figure here was measured in the build: page counts, frame times, file sizes, audit results. Where I would want real usage data, I say so.
+    </aside>
+  </div>
+</section>
+
+<!-- ============ SCREENS ============ -->
+<section class="sec sec--tint screens" id="screens" data-chapter="The screens">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">The UI, on the device most people use</p>
+      <h2 class="h2">Every screen, in your poooocket</h2>
+      <p class="lede">Eight phone screens from the live build: the portal members come back to for ninety seconds at a time.</p>
+    </header>
+
+    <div class="screens__bar reveal">
+      <div class="screens__nav">
+        <button class="rnd" data-dir="-1" aria-label="Previous screens">←</button>
+        <button class="rnd" data-dir="1" aria-label="Next screens">→</button>
+      </div>
+    </div>
+
+    <div class="reel reveal" data-set="portal">
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#060e2d,#040c2d,#030c2e,#050e2e,#040d2d,#050e31,#060d30);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-login.webp" alt="Login: Let's get you in" loading="lazy"></div><figcaption><b>Login</b> One question at a time</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#f9f7f3,#f7f6ef,#f6f4f2,#d3dbea,#8eb1da,#a8c2e4,#88aed6)"><span class="phone__island"></span><img src="assets/shots/phone/p-home.webp" alt="Home: Where do you want to earn Cashback today?" loading="lazy"></div><figcaption><b>Home</b> One question, six doors</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#f9f8f9,#fafafa,#fafafa,#f1eff0,#fafafa,#fafafa,#f9f8f8)"><span class="phone__island"></span><img src="assets/shots/phone/p-cards-finder.webp" alt="Card finder: find the best card for your spends" loading="lazy"></div><figcaption><b>Card finder</b> Priced on your own spends</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#325892,#335a92,#345b93,#2f4c83,#3f629f,#32508b,#34508b);--sb-ink:#fff"><span class="phone__island"></span><img src="assets/shots/phone/p-travel.webp" alt="Flights and hotels with flat Cashback" loading="lazy"></div><figcaption><b>Travel</b> Flat rupees, shown as rupees</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff,#ffffff)"><span class="phone__island"></span><img src="assets/shots/phone/p-insurance.webp" alt="Super Top-Up insurance" loading="lazy"></div><figcaption><b>Super Top-Up</b> Insurance, in plain words</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#6daab4,#6ba9b3,#76acb2,#75abb0,#8bb6b9,#cbe2d6,#fefde7)"><span class="phone__island"></span><img src="assets/shots/phone/p-wallet.webp" alt="Wallet with all-time earnings" loading="lazy"></div><figcaption><b>Wallet</b> "Where's my money?"</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#eaebeb,#e3e7e7,#e2e6e7,#dae2e4,#d8e1e3,#d8e1e3,#e1e8e8)"><span class="phone__island"></span><img src="assets/shots/phone/p-profile.webp" alt="Profile with savings ledger" loading="lazy"></div><figcaption><b>Profile</b> Identity and savings</figcaption></figure>
+      <figure data-zoom><div class="phone phone--sm" style="--sb:linear-gradient(90deg,#85b1b7,#65a4b1,#66a2ae,#66a3af,#68a5af,#66a7b3,#91c2c4)"><span class="phone__island"></span><img src="assets/shots/phone/p-help.webp" alt="Help: how can we help?" loading="lazy"></div><figcaption><b>Help</b> Topics, FAQ and the assistant</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 PROBLEM ============ -->
+<section class="sec" id="problem" data-chapter="01 · The invisible benefit">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">01</span>
+      <p class="eyebrow">The problem</p>
+      <h2 class="h2">The invisible benefiiit</h2>
+      <p class="lede">A benefit only creates value if people use it. Perks is not an app you download because you want it. It's something you have to be <em>told</em> you have, then <em>believe</em>, then <em>start</em>, then <em>remember</em>. Four places to lose someone before a single rupee is earned.</p>
+    </header>
+
+    <ol class="funnel">
+      <li class="reveal"><span class="funnel__n">1</span><h3>Told</h3><p>"I didn't know I had this." It arrives in an HR email between an insurance renewal and a fire drill.</p><span class="funnel__fail">Ignorance</span></li>
+      <li class="reveal funnel--hot"><span class="funnel__n">2</span><h3>Believe</h3><p>"What's the catch?" Free money on things you already buy sets off every scam alarm. <b>The biggest drop-off.</b></p><span class="funnel__fail">Disbelief</span></li>
+      <li class="reveal"><span class="funnel__n">3</span><h3>Start</h3><p>"It's probably a whole thing." Any setup cost, a new app, a code, a different store, ends it.</p><span class="funnel__fail">Friction</span></li>
+      <li class="reveal"><span class="funnel__n">4</span><h3>Remember</h3><p>"Oh right, that thing." Without a reason to come back, the benefit becomes a line item nobody uses.</p><span class="funnel__fail">Forgetting</span></li>
+    </ol>
+
+    <blockquote class="hmw reveal">
+      <span class="eyebrow">How might we</span>
+      <p>make an invisible benefit feel like a gift you were already owed: credible enough to trust, effortless enough to start, and good enough to come back to?</p>
+    </blockquote>
+
+  </div>
+</section>
+
+<!-- ============ 02 PEOPLE ============ -->
+<section class="sec sec--tint" id="people" data-chapter="02 · Who it's for">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">02</span>
+      <p class="eyebrow">Who it's for</p>
+      <h2 class="h2">Four people, one who matters most</h2>
+      <p class="lede">I wrote four working personas instead of one average user. Three of them convert on <em>desire</em>. One converts only on <em>proof</em>, and that one shaped every screen.</p>
+    </header>
+
+    <div class="personas" role="tablist" aria-label="Personas">
+      <button class="persona reveal" role="tab" aria-selected="false" data-p="0"><span class="persona__tag">Desire</span><h4>The New Joiner</h4><p>First real salary. Wants nice things without the guilt.</p></button>
+      <button class="persona reveal" role="tab" aria-selected="false" data-p="1"><span class="persona__tag">Desire</span><h4>The Smart Saver</h4><p>Budgets to the rupee. Loves a deal that takes no extra effort.</p></button>
+      <button class="persona reveal" role="tab" aria-selected="false" data-p="2"><span class="persona__tag">Desire</span><h4>The Big Spender</h4><p>Buys almost everything online anyway.</p></button>
+      <button class="persona persona--key reveal" role="tab" aria-selected="true" data-p="3"><span class="persona__tag">Proof</span><h4>The Skeptic</h4><p>"What's the catch?" Reads the fine print twice, then once more.</p><span class="persona__flag">Load-bearing</span></button>
+    </div>
+    <div class="persona__out reveal" id="personaOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ 03 THE BET ============ -->
+<section class="sec" id="bet" data-chapter="03 · The bet">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">03</span>
+      <p class="eyebrow">Strategy</p>
+      <h2 class="h2">Earn the belief before the claaaim</h2>
+      <p class="lede">"Make your Salary go further" is a slogan. I wanted it to be an answer. So before the site explains a single feature, a 47-second scroll film shows a salary landing and running out.</p>
+    </header>
+
+    <div class="salary reveal">
+      <div class="salary__chart">
+        <div class="salary__odo"><span class="salary__label" id="salLabel">Salary credited</span><b id="salAmt">₹50,000</b><em id="salSay">Payday.</em></div>
+        <svg id="salSvg" viewBox="0 0 720 260" role="img" aria-label="Balance falls from ₹50,000 to ₹10,000 over six spends, then Perks is introduced"></svg>
+        <p class="salary__hint">Hover or tap the beats</p>
+      </div>
+      <div class="salary__why">
+        <h3 class="h3">Why a film first</h3>
+        <p>It creates the gap before offering the fix. Every claim after it lands on a feeling that already exists: <em>"I wish I could do more."</em></p>
+        <h3 class="h3">Why tap and hold</h3>
+        <p>Browsers block sound until someone taps. Rather than apologise with a mute button, I turned that tap into the start: <b>you</b> light up your invite. It also makes the loading wait feel active.</p>
+        <h3 class="h3">How I kept it fair</h3>
+        <ul class="ticks">
+          <li>A clear <b>Skip intro</b> and mute, always visible</li>
+          <li>Phones and reduced-motion get a light path, no film</li>
+          <li>Never replays after login or logout</li>
+          <li>A 9-second failsafe that frees the page if scripts never load</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="voice reveal">
+      <div>
+        <p class="eyebrow">The voice</p>
+        <h3 class="h3">One trick: stretch the vowel</h3>
+        <p>Once per line, on the key word. Sentence case, real numbers, no exclamation marks, no fake urgency. The voice does the anti-scam work a louder voice would undo.</p>
+        <div class="vowels">
+          <span>gooo further</span><span>we haaave it</span><span>toooo gooood</span><span>Sooooo,</span><span>Extraaa</span><span>This gooood</span>
+        </div>
+      </div>
+      <blockquote class="pull">“Most rewards apps shout. We'd rather sound like a friend letting you in on something good.”<cite>From the Perks brand book</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 IA ============ -->
+<section class="sec" id="ia" data-chapter="04 · One brand, two products">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">04</span>
+      <p class="eyebrow">Structure</p>
+      <h2 class="h2">One brand, two products</h2>
+      <p class="lede">The marketing site persuades once. The portal is used for ninety seconds at a time and should then get out of the way. They needed different shapes, joined by a designed seam.</p>
+    </header>
+
+
+    <div class="gallery reveal" aria-label="Portal screens">
+      <figure data-zoom><img src="assets/shots/d-home-0.webp" alt="Portal home: Where do you want to earn Cashback today?" loading="lazy"><figcaption><b>Home.</b> One question, one search, six doors.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-wallet-0.webp" alt="My Wallet: all-time earnings, Confirmed, Pending, Paid" loading="lazy"><figcaption><b>Wallet.</b> "Where's my money?" answered in three states.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-shopping-0.webp" alt="Shopping category page" loading="lazy"><figcaption><b>Shopping.</b> Collections, top brands, live rates.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-cards.webp" alt="Credit cards: find your best card" loading="lazy"><figcaption><b>Cards.</b> Four ways in, not one long table.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-profile-0.webp" alt="Profile with savings ledger" loading="lazy"><figcaption><b>Profile.</b> Identity and a savings ledger, separate from the wallet.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-help.webp" alt="Help centre: How can we help?" loading="lazy"><figcaption><b>Help.</b> Six topics, a searchable FAQ and the assistant.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-travel.webp" alt="Flights and hotels" loading="lazy"><figcaption><b>Travel.</b> Flat rupee Cashback, shown as rupees.</figcaption></figure>
+      <figure data-zoom><img src="assets/shots/d-luxury.webp" alt="Luxury page in a dark gold theme" loading="lazy"><figcaption><b>Luxury.</b> The one dark page, made with the same parts.</figcaption></figure>
+    </div>
+    <p class="gallery__hint">Scroll sideways · click any screen to enlarge</p>
+
+    <div class="phones reveal">
+      <figure data-zoom><img src="assets/shots/m-home.webp" alt="Mobile home" loading="lazy"></figure>
+      <figure data-zoom><img src="assets/shots/m-wallet.webp" alt="Mobile wallet" loading="lazy"></figure>
+      <figure data-zoom><img src="assets/shots/m-profile.webp" alt="Mobile profile" loading="lazy"></figure>
+      <div class="phones__txt">
+        <p class="eyebrow">Mobile</p>
+        <h3 class="h3">A separate design, not a breakpoint</h3>
+        <p>The phone versions aren't squeezed desktop layouts. They're their own designs, switched by CSS so nothing shifts on load. The cost is real: two files per section. I chose it because the experiences were genuinely different.</p>
+        <p>Rules that came out of it: gutter equals card gap equals 24px, sheets get a grab handle instead of an ✕, and the tab bar hides on scroll down so the search button and filters can take its corner.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 SYSTEM ============ -->
+<section class="sec sec--tint" id="system" data-chapter="05 · The system">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">05</span>
+      <p class="eyebrow">Design system</p>
+      <h2 class="h2">Small rules, kept everywhere</h2>
+      <p class="lede">A product that's mostly a number and a feeling needs few parts, used strictly. The whole system fits on one page and ships as a brand book with a "why we did it" on every chapter.</p>
+    </header>
+
+    <div class="sys">
+      <article class="sys__card sys__card--wide reveal">
+        <h4>Two colours do the work</h4>
+        <div class="swatches">
+          <div style="--c:#d74446"><span></span><b>Coral</b><code>#D74446</code><em>Section heads, the yes</em></div>
+          <div style="--c:#e23744"><span></span><b>Perks red</b><code>#E23744</code><em>Brand, primary action</em></div>
+          <div style="--c:#242c51"><span></span><b>Navy</b><code>#242C51</code><em>Page heads, ink</em></div>
+          <div style="--c:#009d73"><span></span><b>Green</b><code>#009D73</code><em>Only for "with Perks"</em></div>
+          <div style="--c:#f6f4f4" class="sw--light"><span></span><b>Ground</b><code>#F6F4F4</code><em>Never pure white*</em></div>
+        </div>
+        <p class="tiny">* In the product, an off-white ground hides hairline seams between stacked full-width sections. A third accent colour means something has gone wrong.</p>
+      </article>
+
+      <article class="sys__card reveal">
+        <h4>Four fonts, four jobs</h4>
+        <ul class="types">
+          <li><span class="t-golf">Salary</span><em>Golften · display &amp; figures</em></li>
+          <li><span class="t-pt">brands you already use</span><em>PT Serif italic · side notes</em></li>
+          <li><span class="t-nun">Withdraw Cashback</span><em>Nunito Sans · everything else</em></li>
+          <li><span class="t-asap">perks</span><em>Asap Black Italic · the logo only</em></li>
+        </ul>
+      </article>
+
+      <article class="sys__card reveal">
+        <h4>The number is the product</h4>
+        <div class="numdemo">
+          <div class="numdemo__row"><span class="bad">₹ 150,000</span><span class="good">₹1,50,000</span></div>
+          <div class="numdemo__row"><span class="bad">30% cashback!!</span><span class="good">Upto <b>30%</b> Cashback</span></div>
+        </div>
+        <ul class="ticks ticks--sm">
+          <li>₹ hugs the number, Indian grouping always</li>
+          <li>Tabular figures so counters don't jitter</li>
+          <li>Real CashKaro rates, even when smaller</li>
+        </ul>
+        <p class="pullsm">“A Cashback number treated casually reads like a rounding error.”</p>
+      </article>
+
+      <article class="sys__card sys__card--wide reveal">
+        <h4>Five movements, two curves</h4>
+        <p class="tiny">Quick to arrive, soft to land. Press play to compare.</p>
+        <div class="ease">
+          <div class="ease__row"><code>ease-out-expo · cubic-bezier(.16,1,.3,1)</code><div class="ease__track"><i class="ease__dot" data-ease="expo"></i></div><span>Entrances, fades</span></div>
+          <div class="ease__row"><code>ease-soft · cubic-bezier(.22,1,.36,1)</code><div class="ease__track"><i class="ease__dot" data-ease="soft"></i></div><span>Hover, float</span></div>
+          <div class="ease__row ease__row--off"><code>linear · the one we don't use</code><div class="ease__track"><i class="ease__dot" data-ease="lin"></i></div><span>Feels mechanical</span></div>
+        </div>
+        <button class="btn btn--ghost btn--sm" id="easePlay">▶ Play</button>
+        <p class="tiny"><b>Reduced motion is a system rule, not an afterthought:</b> every duration becomes zero, so nothing can stay hidden behind an animation that never runs.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 DECISIONS ============ -->
+<section class="sec" id="decisions" data-chapter="06 · Two decisions">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">06</span>
+      <p class="eyebrow">Depth</p>
+      <h2 class="h2">Two decisions worth defending</h2>
+      <p class="lede">Each one went through several versions. I'm showing what didn't work, because that's where the judgement is.</p>
+    </header>
+
+    <div class="dtabs reveal" role="tablist" aria-label="Decisions">
+      <button role="tab" aria-selected="true" aria-controls="d-perky" id="t-perky">A · The assistant</button>
+      <button role="tab" aria-selected="false" aria-controls="d-s2" id="t-s2">B · The category reel</button>
+    </div>
+
+    <!-- B -->
+    <article class="dpanel" id="d-perky" role="tabpanel" aria-labelledby="t-perky">
+      <div class="dpanel__head">
+        <h3 class="h3">Ask Perky, an assistant that can't make things up</h3>
+        <p>In a product whose whole job is trust, an assistant that invents a Cashback rate is worse than no assistant. So Perky answers from the same data the screens show.</p>
+      </div>
+      <div class="dpanel__body">
+        <div class="ba">
+          <figure data-zoom><span class="ba__tag ba__tag--bad">Before audit</span><img src="assets/perky/before-negation.webp" alt="Before: Perky ignores 'no morning flights' and shows morning flights" loading="lazy"><figcaption>"no morning flights" → morning flights</figcaption></figure>
+          <figure data-zoom><span class="ba__tag">After rebuild</span><img src="assets/perky/after-negation.webp" alt="After: Perky shows afternoon and evening flights" loading="lazy"><figcaption>Understood, filtered, said so</figcaption></figure>
+        </div>
+        <div class="pst">
+          <div><span>Audit</span><p>I ran 73 hard messages through it the evening it was built. A third came back <b>confidently wrong</b>.</p></div>
+          <div><span>The rule it wrote</span><p>Never act on half a sentence in silence. If unsure, ask. If unknown, say "I don't have that yet" and hand off to a person.</p></div>
+          <div><span>Result</span>
+            <table class="mini">
+              <tr><td>Probes handled (of 73)</td><td>24 → <b>70</b></td></tr>
+              <tr><td>Confidently wrong</td><td>25 → <b>0</b></td></tr>
+              <tr><td>Language checks</td><td>0 → <b>746</b></td></tr>
+              <tr><td>Engine time per turn</td><td><b>0.4 ms</b></td></tr>
+            </table>
+          </div>
+        </div>
+        <figure class="browser" data-zoom><div class="browser__bar"><i></i><i></i><i></i><span>cards · Ask Perky docked</span></div><img src="assets/perky/docked-cards.webp" alt="Ask Perky docked on the left of the Cards page, the page making room" loading="lazy"><figcaption>Docked on every page from 1024px. The page moves over to make room instead of being covered.</figcaption></figure>
+      </div>
+    </article>
+
+    <!-- C -->
+    <article class="dpanel" id="d-s2" role="tabpanel" aria-labelledby="t-s2" hidden>
+      <div class="dpanel__head">
+        <h3 class="h3">From an 83MB film to a clean plate and live text</h3>
+        <p>The category reel ("You name it, we haaave it") started as one video with every headline baked into the pixels. Soft on retina, impossible to edit, invisible to screen readers.</p>
+      </div>
+      <ol class="steps">
+        <li><b>Baked film</b><span>83MB, text in pixels</span></li>
+        <li><b>Clean plate + DOM</b><span>Video without text; headlines as real type, locked to the same frame</span></li>
+        <li><b>Hardware decoding</b><span>Smooth scrubbing in either direction, about 9ms a frame</span></li>
+        <li><b>Mobile image sequence</b><span>Phones froze on the video; 300 frames, 5.6MB</span></li>
+        <li class="grave__win"><b>Panned sequence</b><span>The crop follows each product to centre screen</span></li>
+      </ol>
+      <div class="pair">
+        <figure data-zoom><img src="assets/shots/lp-s2-open.webp" alt="Reel opener: You name it, we have it" loading="lazy"><figcaption>Headlines type on as you scroll and un-type when you scroll back.</figcaption></figure>
+        <figure data-zoom><img src="assets/shots/lp-s2-travel.webp" alt="Reel beat: love to travel, with the flights card" loading="lazy"><figcaption>Text writes, settles, then the card swings in.</figcaption></figure>
+      </div>
+      <div class="pst pst--row">
+        <div><span>Gained</span><p>Sharp type at any density, copy changes in one line, and real effects like focus blur and sheen.</p></div>
+        <div><span>Paid</span><p>Two systems that must stay frame-locked, and a separate render path for phones.</p></div>
+        <div><span>Also</span><p>A 48-tick progress meter you can click to jump. An honest fix for "how long is this?" on a scroll-locked section.</p></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 08 PERFORMANCE ============ -->
+<section class="sec sec--tint" id="perf" data-chapter="07 · Performance">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">07</span>
+      <p class="eyebrow">Performance is a design material</p>
+      <h2 class="h2">One measurement changed the plan</h2>
+      <p class="lede">The scroll felt heavy. I ran the same scroll twice: once normally, once with reduced motion on.</p>
+    </header>
+
+    <div class="insight reveal">
+      <div class="insight__bars">
+        <div class="hbar"><span>Normal</span><div><i style="--w:100%"></i></div><b>26.4 ms</b></div>
+        <div class="hbar hbar--g"><span>Reduced motion</span><div><i style="--w:57.6%"></i></div><b>15.2 ms</b></div>
+      </div>
+      <p><b>About 40% of every scroll frame was the motion layer, not layout.</b> So the fix wasn't to redesign anything. It was to stop paying for effects that weren't on screen.</p>
+    </div>
+
+    <div class="perfgrid">
+      <div class="pcard reveal"><span>Average scroll frame</span><div class="pcard__ba"><s>26.4ms</s><b>23.2ms</b></div><p>Removed a blur that ran even at zero, and GPU layers held by off-screen sections.</p></div>
+      <div class="pcard reveal"><span>Worst frame</span><div class="pcard__ba"><s>192ms</s><b>150ms</b></div><p>Paused off-screen video; stopped a clip downloading twice.</p></div>
+      <div class="pcard reveal"><span>Initial transfer</span><div class="pcard__ba"><s>52.0MB</s><b>45.1MB</b></div><p>Deferred the closing video until it's near.</p></div>
+      <div class="pcard reveal"><span>Top Brands art</span><div class="pcard__ba"><s>8.9MB</s><b>432KB</b></div><p>Sized for 3× on a 220px tile, and no bigger.</p></div>
+    </div>
+
+    <div class="callouts callouts--2">
+      <div class="reveal"><b>A judgement call: I removed the gyro tilt on phones.</b> It was the last thing costing frames on the device where it lived. A delight that costs frames isn't a delight. The tilts and sheens stay, just still.</div>
+      <div class="reveal"><b>A trade I refused.</b> A 14MB version of the reel video looked blurry on retina. 24MB stayed. Smaller isn't better if it looks cheap to the Skeptic.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 TRADEOFFS ============ -->
+<section class="sec" id="tradeoffs" data-chapter="08 · Tradeoffs">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <span class="num">08</span>
+      <p class="eyebrow">Stated plainly</p>
+      <h2 class="h2">What I gained, what I paid</h2>
+    </header>
+    <div class="trade reveal">
+      <div class="trade__row trade__row--h"><span>Decision</span><span>Gained</span><span>Paid</span></div>
+      <div class="trade__row"><span>A film before any content</span><span>Feeling before features; premium before explained</span><span>Time to content, bandwidth, needed skip, mute and failsafe</span></div>
+      <div class="trade__row"><span>Separate mobile designs</span><span>Purpose-built phone experiences, no layout shift</span><span>Two files per section to maintain</span></div>
+      <div class="trade__row"><span>Scroll-locked reel</span><span>A guided tour of every category</span><span>Users lose scroll control; softened with a seek bar</span></div>
+      <div class="trade__row"><span>Rule-based assistant</span><span>Cannot invent a rate, instant, works offline</span><span>Only knows what's in its knowledge base</span></div>
+      <div class="trade__row"><span>Real CashKaro rates</span><span>Credibility with the Skeptic</span><span>Smaller headline numbers than invented ones</span></div>
+      <div class="trade__row"><span>Pinch-zoom off on touch</span><span>App-like feel</span><span>A real accessibility cost I'd revisit</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="close">
+  <div class="wrap">
+    <p class="close__sign reveal">Because, you've never gotten <span>Perks</span>.</p>
+    <div class="close__cta reveal">
+      <a class="btn btn--red" href="https://zomato-perks.angysingh.workers.dev" target="_blank" rel="noopener">Try the live prototype ↗</a>
+      <a class="btn btn--ghost" href="#top">Back to top ↑</a>
+    </div>
+    <p class="eyebrow close__more reveal">More work</p>
+    <div class="next reveal">
+      <a class="next__card" href="../user-study/">
+        <span>Research</span><b>The CashKaro user study</b><em>Calling real users to learn why they go quiet →</em>
+      </a>
+      <a class="next__card" href="../missions-streaks/">
+        <span>Gamification</span><b>Missions &amp; Streaks</b><em>Giving people a reason to come back →</em>
+      </a>
+    </div>
+  </div>
+  <div class="close__mark" aria-hidden="true">This gooood</div>
+</section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" hidden>
+  <button class="lightbox__x" aria-label="Close">✕</button>
+  <img alt="">
+  <p class="lightbox__cap"></p>
+</div>
+
+<script src="js/perks-case.js"></script>
+<script src="js/prototype.js"></script>
+</body>
+</html>
